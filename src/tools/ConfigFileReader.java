@@ -6,27 +6,27 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigFileReader {
-	
-	public ConfigFileReader () {
-		
+
+	public ConfigFileReader() {
+
 	}
 
-	public String getPropertieValue(String key) throws IOException {
+	public String getPropertieValue(final String key) throws IOException {
 		String result = null;
 		InputStream inputStream = null;
-		
-		Properties properties = new Properties();
-		String fileName = "config/config.properties";
+
+		final Properties properties = new Properties();
+		final String fileName = "config/config.properties";
 		try {
-			inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
-			
+			inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+
 			if (inputStream != null) {
 				properties.load(inputStream);
 			} else {
 				throw new FileNotFoundException("Property file " + fileName + " not found in classpath.");
 			}
 			result = properties.getProperty(key);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 		} finally {
 			inputStream.close();

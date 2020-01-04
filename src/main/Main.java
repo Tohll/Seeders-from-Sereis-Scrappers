@@ -6,12 +6,12 @@ import scrappers.ui.Application;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		EventQueue.invokeLater(() -> {
-            final Application app = new Application();
-            app.setVisible(true);
-        });
+			final Application app = new Application();
+			app.setVisible(true);
+		});
 	}
 
 }
