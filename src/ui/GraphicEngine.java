@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -33,6 +34,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private final Color uiBackgroundColor;
 
 	public GraphicEngine() throws IOException {
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		this.planetsControler = PlanetsControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),

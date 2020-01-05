@@ -39,7 +39,7 @@ public abstract class AbsPlanet extends JLabel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(final MouseEvent e) {
-				AbsPlanet.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				AbsPlanet.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 			}
 		});
 		this.setLocation(position);
