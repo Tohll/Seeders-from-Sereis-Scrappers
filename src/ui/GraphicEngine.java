@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controlers.PlanetsControler;
+import controlers.PlayerControler;
 import planets.AbsPlanet;
 import tools.ConfigFileReader;
 
@@ -71,6 +72,9 @@ public class GraphicEngine extends JPanel implements Runnable {
 				GraphicEngine.this.setLocation(x, y);
 			}
 		});
+		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
+			this.add(planet);
+		}
 	}
 
 	@Override
@@ -83,13 +87,6 @@ public class GraphicEngine extends JPanel implements Runnable {
 
 	private void drawBackGround(final Graphics g) {
 		g.drawImage(this.bg.getImage(), 0, 0, (int) this.boardSize.getWidth(), (int) this.boardSize.getHeight(), null);
-	}
-
-	private void drawPlanets(final Graphics g) {
-		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
-			g.drawImage(planet.getImage(), planet.getPosition().x, planet.getPosition().y, planet.getSize().width,
-					planet.getSize().height, null);
-		}
 	}
 
 	private void drawUI(final Graphics g) {
@@ -107,6 +104,13 @@ public class GraphicEngine extends JPanel implements Runnable {
 		g.drawRect(6, 6, (int) this.boardSize.getWidth() - 14, (int) this.boardSize.getHeight() - 14);
 		g.setColor(new Color(0.3f, 1f, 0, 0.15f));
 		g.drawRect(8, 8, (int) this.boardSize.getWidth() - 18, (int) this.boardSize.getHeight() - 18);
+		// selector
+		final AbsPlanet selectedPlanet = PlayerControler._getInstance().getSelectedPlanet();
+		if (selectedPlanet != null) {
+			g.setColor(this.greenMonitor);
+			g.drawRect(selectedPlanet.getLocation().x, selectedPlanet.getLocation().y, selectedPlanet.getSize().width,
+					selectedPlanet.getSize().height);
+		}
 	}
 
 	@Override
@@ -118,7 +122,6 @@ public class GraphicEngine extends JPanel implements Runnable {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		this.drawBackGround(g);
-		this.drawPlanets(g);
 		this.drawUI(g);
 	}
 

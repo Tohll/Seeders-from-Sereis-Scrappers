@@ -1,33 +1,68 @@
 package planets;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-public abstract class AbsPlanet extends ImageIcon {
+import controlers.PlayerControler;
+
+public abstract class AbsPlanet extends JLabel {
 
 	public static final String L = "Large";
 	public static final String M = "Medium";
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
+	protected boolean isPlanetSelected;
 	protected String planetSize;
-	protected Point position;
-	protected Dimension size;
 
-	protected AbsPlanet(final String filePath, final String planetSize, final Point position) {
-		super(filePath);
-		this.position = position;
+	protected AbsPlanet(final int number, final String filePath, final String planetSize, final Point position) {
+		this.isPlanetSelected = false;
+		this.setName(String.valueOf(number));
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(final MouseEvent e) {
+				PlayerControler._getInstance().setSelectedPlanet((AbsPlanet) e.getComponent());
+			}
+		});
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(final MouseEvent e) {
+				AbsPlanet.this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+			}
+		});
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(final MouseEvent e) {
+				AbsPlanet.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+		});
+		this.setLocation(position);
 		this.planetSize = planetSize;
+		ImageIcon imageicon;
 		switch (planetSize) {
 		case S:
-			this.size = new Dimension(50, 50);
+			this.setSize(new Dimension(25, 25));
+			imageicon = new ImageIcon(filePath);
+			imageicon = new ImageIcon(imageicon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+			this.setIcon(imageicon);
 			break;
 		case M:
-			this.size = new Dimension(100, 100);
+			this.setSize(new Dimension(50, 50));
+			imageicon = new ImageIcon(filePath);
+			imageicon = new ImageIcon(imageicon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+			this.setIcon(imageicon);
 			break;
 		case L:
-			this.size = new Dimension(150, 150);
+			this.setSize(new Dimension(75, 75));
+			imageicon = new ImageIcon(filePath);
+			imageicon = new ImageIcon(imageicon.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH));
+			this.setIcon(imageicon);
 			break;
 		default:
 			throw new IllegalArgumentException("Incorrect planet size used");
@@ -38,11 +73,11 @@ public abstract class AbsPlanet extends ImageIcon {
 		return this.planetSize;
 	}
 
-	public Point getPosition() {
-		return this.position;
+	public boolean isPlanetSelected() {
+		return this.isPlanetSelected;
 	}
 
-	public Dimension getSize() {
-		return this.size;
+	public void isPlanetSelected(final boolean isSelected) {
+		this.isPlanetSelected = isSelected;
 	}
 }

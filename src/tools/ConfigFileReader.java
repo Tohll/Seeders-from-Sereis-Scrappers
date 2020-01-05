@@ -11,6 +11,7 @@ public class ConfigFileReader implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public ConfigFileReader() {
+		// no implementatioin needed
 	}
 
 	public String getPropertieValue(final String key) throws IOException {
