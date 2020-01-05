@@ -24,41 +24,41 @@ public class PlanetsControler {
 		return SingletonHolder.INSTANCE;
 	}
 
-	private List<AbsPlanet> planets;
-	private Random random;
-	private ConfigFileReader configFileReader;
 	private Dimension boardSize;
+	private final ConfigFileReader configFileReader;
 	private int planetCount;
+	private final List<AbsPlanet> planets;
+	private final Random random;
 
 	private PlanetsControler() {
 		this.random = new Random();
 		this.planets = new ArrayList<>();
 		this.configFileReader = new ConfigFileReader();
 		try {
-			this.boardSize = new Dimension(Integer.parseInt(configFileReader.getPropertieValue("boardWidth")),
-					Integer.parseInt(configFileReader.getPropertieValue("boardHeight")));
-			this.planetCount = Integer.parseInt(configFileReader.getPropertieValue("planetCount"));
+			this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
+					Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
+			this.planetCount = Integer.parseInt(this.configFileReader.getPropertieValue("planetCount"));
 		} catch (NumberFormatException | IOException e) {
 			e.printStackTrace();
 		}
 		this.initPlanets();
 	}
-	
-	public List<AbsPlanet> getPlanets () {
+
+	public List<AbsPlanet> getPlanets() {
 		return this.planets;
 	}
-	
+
 	private void initPlanets() {
 
-		int boardDeadBorder = 50;
-		int xOffSet = boardSize.width - (boardDeadBorder * 2);
-		int yOffSet = boardSize.height - (boardDeadBorder * 2);
+		final int boardDeadBorder = 50;
+		final int xOffSet = this.boardSize.width - (boardDeadBorder * 2);
+		final int yOffSet = this.boardSize.height - (boardDeadBorder * 2);
 
 		for (int i = 1; i <= this.planetCount; i++) {
-			Point position = new Point(random.nextInt(xOffSet) + boardDeadBorder,
-					random.nextInt(yOffSet) + boardDeadBorder);
-			int randType = random.nextInt(4);
-			int randCaliber = random.nextInt(3);
+			final Point position = new Point(this.random.nextInt(xOffSet) + boardDeadBorder,
+					this.random.nextInt(yOffSet) + boardDeadBorder);
+			final int randType = this.random.nextInt(4);
+			final int randCaliber = this.random.nextInt(3);
 			switch (randType) {
 			// barren
 			case 0:
@@ -67,11 +67,11 @@ public class PlanetsControler {
 				case 0:
 					this.planets.add(new BarrenPlanet(AbsPlanet.S, position));
 					break;
-				// medium
+					// medium
 				case 1:
 					this.planets.add(new BarrenPlanet(AbsPlanet.M, position));
 					break;
-				// large
+					// large
 				case 2:
 					this.planets.add(new BarrenPlanet(AbsPlanet.L, position));
 					break;
@@ -79,18 +79,18 @@ public class PlanetsControler {
 					throw new IllegalArgumentException("Bad planet caliber");
 				}
 				break;
-			// water
+				// water
 			case 1:
 				switch (randCaliber) {
 				// small
 				case 0:
 					this.planets.add(new WaterPlanet(AbsPlanet.S, position));
 					break;
-				// medium
+					// medium
 				case 1:
 					this.planets.add(new WaterPlanet(AbsPlanet.M, position));
 					break;
-				// large
+					// large
 				case 2:
 					this.planets.add(new WaterPlanet(AbsPlanet.L, position));
 					break;
@@ -98,18 +98,18 @@ public class PlanetsControler {
 					throw new IllegalArgumentException("Bad planet caliber");
 				}
 				break;
-			// lava
+				// lava
 			case 2:
 				switch (randCaliber) {
 				// small
 				case 0:
 					this.planets.add(new LavaPlanet(AbsPlanet.S, position));
 					break;
-				// medium
+					// medium
 				case 1:
 					this.planets.add(new LavaPlanet(AbsPlanet.M, position));
 					break;
-				// large
+					// large
 				case 2:
 					this.planets.add(new LavaPlanet(AbsPlanet.L, position));
 					break;
@@ -117,18 +117,18 @@ public class PlanetsControler {
 					throw new IllegalArgumentException("Bad planet caliber");
 				}
 				break;
-			// hydrogen
+				// hydrogen
 			case 3:
 				switch (randCaliber) {
 				// small
 				case 0:
 					this.planets.add(new HydrogenPlanet(AbsPlanet.S, position));
 					break;
-				// medium
+					// medium
 				case 1:
 					this.planets.add(new HydrogenPlanet(AbsPlanet.M, position));
 					break;
-				// large
+					// large
 				case 2:
 					this.planets.add(new HydrogenPlanet(AbsPlanet.L, position));
 					break;

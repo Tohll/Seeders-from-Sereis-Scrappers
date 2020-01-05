@@ -2,7 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 
-import scrappers.ui.Application;
+import ui.Application;
 
 public class Main {
 

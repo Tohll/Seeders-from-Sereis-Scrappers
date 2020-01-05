@@ -12,10 +12,10 @@ public abstract class AbsPlanet extends ImageIcon {
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
 	protected String planetSize;
-	protected Dimension size;
 	protected Point position;
+	protected Dimension size;
 
-	protected AbsPlanet(final String filePath, final String planetSize, Point position) {
+	protected AbsPlanet(final String filePath, final String planetSize, final Point position) {
 		super(filePath);
 		this.position = position;
 		this.planetSize = planetSize;
@@ -34,15 +34,15 @@ public abstract class AbsPlanet extends ImageIcon {
 		}
 	}
 
-	public Dimension getSize() {
-		return this.size;
+	public String getPlanetSize() {
+		return this.planetSize;
 	}
-	
+
 	public Point getPosition() {
 		return this.position;
 	}
-	
-	public String getPlanetSize () {
-		return this.planetSize;
+
+	public Dimension getSize() {
+		return this.size;
 	}
 }

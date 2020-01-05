@@ -1,4 +1,4 @@
-package scrappers.ui;
+package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,14 +26,14 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private final ConfigFileReader configFileReader = new ConfigFileReader();
 	private final Font defaultFont;
 	private final int delay;
-	private final boolean hasToDisplay;
-	private final Color uiBackgroundColor;
 	private final Color greenMonitor;
-	private PlanetsControler planetsControler;
+	private final boolean hasToDisplay;
+	private final PlanetsControler planetsControler;
+	private final Color uiBackgroundColor;
 
 	public GraphicEngine() throws IOException {
 		this.planetsControler = PlanetsControler._getInstance();
-		this.greenMonitor = new Color (0.3f, 1f, 0, 0.45f);
+		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
 				Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
 		this.setLayout(null);
@@ -85,12 +85,13 @@ public class GraphicEngine extends JPanel implements Runnable {
 		g.drawImage(this.bg.getImage(), 0, 0, (int) this.boardSize.getWidth(), (int) this.boardSize.getHeight(), null);
 	}
 
-	private void drawPlanets (final Graphics g) {
-		for (AbsPlanet planet : planetsControler.getPlanets()) {
-			g.drawImage(planet.getImage(), planet.getPosition().x, planet.getPosition().y, planet.getSize().width, planet.getSize().height, null);
+	private void drawPlanets(final Graphics g) {
+		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
+			g.drawImage(planet.getImage(), planet.getPosition().x, planet.getPosition().y, planet.getSize().width,
+					planet.getSize().height, null);
 		}
 	}
-	
+
 	private void drawUI(final Graphics g) {
 		g.setColor(this.uiBackgroundColor);
 		g.fillRect(15, 20, 122, 50);
@@ -99,13 +100,13 @@ public class GraphicEngine extends JPanel implements Runnable {
 		g.drawString(String.format("Width : %d", this.getWidth()), 20, 40);
 		g.drawString(String.format("Height : %d", this.getHeight()), 20, 62);
 		g.setColor(this.greenMonitor);
-		g.drawRect(1, 1, (int)boardSize.getWidth() - 4, (int)boardSize.getHeight() - 4);
-		g.drawRect(2, 2, (int)boardSize.getWidth() - 6, (int)boardSize.getHeight() - 6);
-		g.setColor(new Color (0.3f, 1f, 0, 0.25f));
-		g.drawRect(4, 4, (int)boardSize.getWidth() - 10, (int)boardSize.getHeight() - 10);
-		g.drawRect(6, 6, (int)boardSize.getWidth() - 14, (int)boardSize.getHeight() - 14);
-		g.setColor(new Color (0.3f, 1f, 0, 0.15f));
-		g.drawRect(8, 8, (int)boardSize.getWidth() - 18, (int)boardSize.getHeight() - 18);
+		g.drawRect(1, 1, (int) this.boardSize.getWidth() - 4, (int) this.boardSize.getHeight() - 4);
+		g.drawRect(2, 2, (int) this.boardSize.getWidth() - 6, (int) this.boardSize.getHeight() - 6);
+		g.setColor(new Color(0.3f, 1f, 0, 0.25f));
+		g.drawRect(4, 4, (int) this.boardSize.getWidth() - 10, (int) this.boardSize.getHeight() - 10);
+		g.drawRect(6, 6, (int) this.boardSize.getWidth() - 14, (int) this.boardSize.getHeight() - 14);
+		g.setColor(new Color(0.3f, 1f, 0, 0.15f));
+		g.drawRect(8, 8, (int) this.boardSize.getWidth() - 18, (int) this.boardSize.getHeight() - 18);
 	}
 
 	@Override
