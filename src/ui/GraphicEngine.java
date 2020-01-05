@@ -34,7 +34,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private final Color uiBackgroundColor;
 
 	public GraphicEngine() throws IOException {
-		this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		this.planetsControler = PlanetsControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
@@ -50,6 +50,13 @@ public class GraphicEngine extends JPanel implements Runnable {
 			@Override
 			public void mousePressed(final MouseEvent e) {
 				GraphicEngine.this.boardLocation = e.getPoint();
+				GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+			}
+		});
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(final MouseEvent e) {
+				GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 		});
 		this.addMouseMotionListener(new MouseAdapter() {
