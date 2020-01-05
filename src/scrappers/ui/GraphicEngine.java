@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import controlers.PlanetsControler;
+import planets.AbsPlanet;
 import tools.ConfigFileReader;
 
 public class GraphicEngine extends JPanel implements Runnable {
@@ -27,8 +29,10 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private final boolean hasToDisplay;
 	private final Color uiBackgroundColor;
 	private final Color greenMonitor;
+	private PlanetsControler planetsControler;
 
 	public GraphicEngine() throws IOException {
+		this.planetsControler = PlanetsControler._getInstance();
 		this.greenMonitor = new Color (0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
 				Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
@@ -81,6 +85,12 @@ public class GraphicEngine extends JPanel implements Runnable {
 		g.drawImage(this.bg.getImage(), 0, 0, (int) this.boardSize.getWidth(), (int) this.boardSize.getHeight(), null);
 	}
 
+	private void drawPlanets (final Graphics g) {
+		for (AbsPlanet planet : planetsControler.getPlanets()) {
+			g.drawImage(planet.getImage(), planet.getPosition().x, planet.getPosition().y, planet.getSize().width, planet.getSize().height, null);
+		}
+	}
+	
 	private void drawUI(final Graphics g) {
 		g.setColor(this.uiBackgroundColor);
 		g.fillRect(15, 20, 122, 50);
@@ -107,6 +117,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		this.drawBackGround(g);
+		this.drawPlanets(g);
 		this.drawUI(g);
 	}
 
