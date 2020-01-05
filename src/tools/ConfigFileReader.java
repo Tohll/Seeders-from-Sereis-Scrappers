@@ -3,12 +3,14 @@ package tools;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Properties;
 
-public class ConfigFileReader {
+public class ConfigFileReader implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public ConfigFileReader() {
-
 	}
 
 	public String getPropertieValue(final String key) throws IOException {
@@ -29,7 +31,9 @@ public class ConfigFileReader {
 		} catch (final Exception e) {
 			System.out.println(e);
 		} finally {
-			inputStream.close();
+			if (inputStream != null) {
+				inputStream.close();
+			}
 		}
 		return result;
 	}

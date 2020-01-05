@@ -13,25 +13,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import tools.ConfigFileReader;
+
 public class GraphicEngine extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = -7273880090886312807L;
 	private final ImageIcon bg;
 	private Point boardLocation;
+	private final Dimension boardSize;
+	private final ConfigFileReader configFileReader = new ConfigFileReader();
 	private final Font defaultFont;
 	private final int delay;
 	private final boolean hasToDisplay;
 	private final Color uiBackgroundColor;
+	private final Color greenMonitor;
 
 	public GraphicEngine() throws IOException {
+		this.greenMonitor = new Color (0.3f, 1f, 0, 0.45f);
+		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
+				Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
 		this.setLayout(null);
 		this.defaultFont = new Font("Arial", Font.BOLD, 18);
 		this.uiBackgroundColor = new Color(0, 0, 0, 0.3f);
 		this.bg = new ImageIcon("resources/img/fond.png");
 		this.delay = 25;
-		this.setSize(this.getPreferredSize());
 		this.hasToDisplay = true;
-		this.setSize(new Dimension(1920, 1080));
+		this.setSize(this.boardSize);
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(final MouseEvent e) {
@@ -41,9 +48,23 @@ public class GraphicEngine extends JPanel implements Runnable {
 		this.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(final MouseEvent e) {
-				GraphicEngine.this.setLocation(
-						GraphicEngine.this.getX() + e.getX() - (int) (GraphicEngine.this.boardLocation.getX()),
-						GraphicEngine.this.getY() + e.getY() - (int) (GraphicEngine.this.boardLocation.getY()));
+				final int boardSizeY = (int) GraphicEngine.this.boardSize.getHeight();
+				final int boardSizeX = (int) GraphicEngine.this.boardSize.getWidth();
+				int x = GraphicEngine.this.getX() + e.getX() - (int) (GraphicEngine.this.boardLocation.getX());
+				int y = GraphicEngine.this.getY() + e.getY() - (int) (GraphicEngine.this.boardLocation.getY());
+				final int yOffSet = (-boardSizeY + GraphicEngine.this.getRootPane().getHeight()) - 2;
+				final int xOffSet = (-boardSizeX + GraphicEngine.this.getRootPane().getWidth()) - 2;
+				if (x > 0) {
+					x = 0;
+				} else if (x < xOffSet) {
+					x = xOffSet;
+				}
+				if (y > 0) {
+					y = 0;
+				} else if (y < yOffSet) {
+					y = yOffSet;
+				}
+				GraphicEngine.this.setLocation(x, y);
 			}
 		});
 	}
@@ -57,7 +78,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 	}
 
 	private void drawBackGround(final Graphics g) {
-		g.drawImage(this.bg.getImage(), 0, 0, 3840, 2160, null);
+		g.drawImage(this.bg.getImage(), 0, 0, (int) this.boardSize.getWidth(), (int) this.boardSize.getHeight(), null);
 	}
 
 	private void drawUI(final Graphics g) {
@@ -67,11 +88,19 @@ public class GraphicEngine extends JPanel implements Runnable {
 		g.setColor(Color.WHITE);
 		g.drawString(String.format("Width : %d", this.getWidth()), 20, 40);
 		g.drawString(String.format("Height : %d", this.getHeight()), 20, 62);
+		g.setColor(this.greenMonitor);
+		g.drawRect(1, 1, (int)boardSize.getWidth() - 4, (int)boardSize.getHeight() - 4);
+		g.drawRect(2, 2, (int)boardSize.getWidth() - 6, (int)boardSize.getHeight() - 6);
+		g.setColor(new Color (0.3f, 1f, 0, 0.25f));
+		g.drawRect(4, 4, (int)boardSize.getWidth() - 10, (int)boardSize.getHeight() - 10);
+		g.drawRect(6, 6, (int)boardSize.getWidth() - 14, (int)boardSize.getHeight() - 14);
+		g.setColor(new Color (0.3f, 1f, 0, 0.15f));
+		g.drawRect(8, 8, (int)boardSize.getWidth() - 18, (int)boardSize.getHeight() - 18);
 	}
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(3840, 2160);
+		return this.boardSize;
 	}
 
 	@Override
