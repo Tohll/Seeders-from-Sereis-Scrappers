@@ -30,10 +30,12 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private final int delay;
 	private final Color greenMonitor;
 	private final boolean hasToDisplay;
+	private final JPanel infoPanel;
 	private final PlanetsControler planetsControler;
 	private final Color uiBackgroundColor;
 
-	public GraphicEngine() throws IOException {
+	public GraphicEngine(final JPanel infoPanel) throws IOException {
+		this.infoPanel = infoPanel;
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		this.planetsControler = PlanetsControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
@@ -130,6 +132,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 	@Override
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
+		this.infoPanel.paintComponents(g);
 		this.drawBackGround(g);
 		this.drawUI(g);
 	}

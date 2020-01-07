@@ -28,5 +28,6 @@ public class PlayerControler {
 		}
 		this.selectedPlanet = selectedPlanet;
 		this.selectedPlanet.isPlanetSelected(true);
+		DataControler._getInstance().updatePlayerObservers();
 	}
 }

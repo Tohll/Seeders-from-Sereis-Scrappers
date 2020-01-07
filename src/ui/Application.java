@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
 import tools.ConfigFileReader;
@@ -20,18 +22,27 @@ public class Application extends JFrame {
 	private final ConfigFileReader configFileReader = new ConfigFileReader();
 
 	public Application() {
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setBackground(new Color(0, 0, 0));
 		this.setTitle("Seeders from Sereïs : Scrappers");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		final JSplitPane splitPlane = new JSplitPane();
+		splitPlane.setOneTouchExpandable(true);
+		splitPlane.setContinuousLayout(true);
+		splitPlane.resetToPreferredSizes();
+		splitPlane.setDividerLocation(150);
 		JScrollPane jsp = null;
+		final JPanel infoPanel = new InfoPanel();
+		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);
+		this.getContentPane().add(splitPlane);
+		splitPlane.setLeftComponent(infoScrollPane);
 		try {
-			jsp = new JScrollPane(new GraphicEngine(), ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			jsp = new JScrollPane(new GraphicEngine(infoPanel), ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		} catch (NumberFormatException | IOException e2) {
 			e2.printStackTrace();
 		}
-		this.getContentPane().add(jsp);
+		splitPlane.setRightComponent(jsp);
 		try {
 			this.setSize(new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("width")),
 					Integer.parseInt(this.configFileReader.getPropertieValue("height"))));
