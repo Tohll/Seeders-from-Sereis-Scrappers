@@ -3,7 +3,6 @@ package ui;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -26,13 +25,11 @@ public class GraphicEngine extends JPanel implements Runnable {
 	private Point boardLocation;
 	private final Dimension boardSize;
 	private final ConfigFileReader configFileReader = new ConfigFileReader();
-	private final Font defaultFont;
 	private final int delay;
 	private final Color greenMonitor;
 	private final boolean hasToDisplay;
 	private final JPanel infoPanel;
 	private final PlanetsControler planetsControler;
-	private final Color uiBackgroundColor;
 
 	public GraphicEngine(final JPanel infoPanel) throws IOException {
 		this.infoPanel = infoPanel;
@@ -42,8 +39,6 @@ public class GraphicEngine extends JPanel implements Runnable {
 		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
 				Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
 		this.setLayout(null);
-		this.defaultFont = new Font("Arial", Font.BOLD, 18);
-		this.uiBackgroundColor = new Color(0, 0, 0, 0.3f);
 		this.bg = new ImageIcon("resources/img/fond.png");
 		this.delay = 25;
 		this.hasToDisplay = true;
@@ -68,8 +63,8 @@ public class GraphicEngine extends JPanel implements Runnable {
 				final int boardSizeX = (int) GraphicEngine.this.boardSize.getWidth();
 				int x = GraphicEngine.this.getX() + e.getX() - (int) (GraphicEngine.this.boardLocation.getX());
 				int y = GraphicEngine.this.getY() + e.getY() - (int) (GraphicEngine.this.boardLocation.getY());
-				final int yOffSet = (-boardSizeY + GraphicEngine.this.getRootPane().getHeight()) - 2;
-				final int xOffSet = (-boardSizeX + GraphicEngine.this.getRootPane().getWidth()) - 2;
+				final int yOffSet = (-boardSizeY + GraphicEngine.this.getParent().getHeight()) - 2;
+				final int xOffSet = (-boardSizeX + GraphicEngine.this.getParent().getWidth()) - 2;
 				if (x > 0) {
 					x = 0;
 				} else if (x < xOffSet) {
@@ -101,12 +96,6 @@ public class GraphicEngine extends JPanel implements Runnable {
 	}
 
 	private void drawUI(final Graphics g) {
-		g.setColor(this.uiBackgroundColor);
-		g.fillRect(15, 20, 122, 50);
-		g.setFont(this.defaultFont);
-		g.setColor(Color.WHITE);
-		g.drawString(String.format("Width : %d", this.getWidth()), 20, 40);
-		g.drawString(String.format("Height : %d", this.getHeight()), 20, 62);
 		g.setColor(this.greenMonitor);
 		g.drawRect(1, 1, (int) this.boardSize.getWidth() - 4, (int) this.boardSize.getHeight() - 4);
 		g.drawRect(2, 2, (int) this.boardSize.getWidth() - 6, (int) this.boardSize.getHeight() - 6);
