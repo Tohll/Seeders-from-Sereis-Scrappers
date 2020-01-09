@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
+import controlers.GraphicControler;
 import tools.ConfigFileReader;
 
 /**
@@ -36,8 +37,10 @@ public class Application extends JFrame {
 		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);
 		this.getContentPane().add(splitPlane);
 		splitPlane.setLeftComponent(infoScrollPane);
+		JPanel map = null;
 		try {
-			jsp = new JScrollPane(new GraphicEngine(infoPanel), ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			map = new Map();
+			jsp = new JScrollPane(map, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		} catch (NumberFormatException | IOException e2) {
 			e2.printStackTrace();
@@ -50,5 +53,7 @@ public class Application extends JFrame {
 			e.printStackTrace();
 		}
 		this.setLocationRelativeTo(null);
+		final Thread graphicControler = new Thread(new GraphicControler(infoPanel, map));
+		graphicControler.start();
 	}
 }

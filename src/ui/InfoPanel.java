@@ -49,7 +49,6 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		super.paintComponent(g);
 		this.drawBackGround(g);
 		this.drawUI(g);
-		this.repaint();
 	}
 
 	@Override
