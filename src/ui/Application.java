@@ -31,7 +31,7 @@ public class Application extends JFrame {
 		splitPlane.setOneTouchExpandable(true);
 		splitPlane.setContinuousLayout(true);
 		splitPlane.resetToPreferredSizes();
-		splitPlane.setDividerLocation(150);
+		splitPlane.setDividerLocation(400);
 		JScrollPane jsp = null;
 		final JPanel infoPanel = new InfoPanel();
 		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);

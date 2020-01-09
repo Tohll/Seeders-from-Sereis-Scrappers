@@ -15,7 +15,7 @@ public class PlayerControler {
 	private AbsPlanet selectedPlanet;
 
 	private PlayerControler() {
-		// implementation not needed
+		this.selectedPlanet = null;
 	}
 
 	public AbsPlanet getSelectedPlanet() {
@@ -23,11 +23,7 @@ public class PlayerControler {
 	}
 
 	public void setSelectedPlanet(final AbsPlanet selectedPlanet) {
-		if (this.selectedPlanet != null) {
-			this.selectedPlanet.isPlanetSelected(false);
-		}
 		this.selectedPlanet = selectedPlanet;
-		this.selectedPlanet.isPlanetSelected(true);
 		DataControler._getInstance().updatePlayerObservers();
 	}
 }

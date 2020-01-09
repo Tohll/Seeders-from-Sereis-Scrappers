@@ -18,11 +18,12 @@ public abstract class AbsPlanet extends JLabel {
 	public static final String M = "Medium";
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
-	protected boolean isPlanetSelected;
 	protected String planetSize;
+	protected String type;
 
-	protected AbsPlanet(final int number, final String filePath, final String planetSize, final Point position) {
-		this.isPlanetSelected = false;
+	protected AbsPlanet(final int number, final String filePath, final String planetSize, final Point position,
+			final String type) {
+		this.type = type;
 		this.setName(String.valueOf(number));
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -73,11 +74,7 @@ public abstract class AbsPlanet extends JLabel {
 		return this.planetSize;
 	}
 
-	public boolean isPlanetSelected() {
-		return this.isPlanetSelected;
-	}
-
-	public void isPlanetSelected(final boolean isSelected) {
-		this.isPlanetSelected = isSelected;
+	public String getPlanetType() {
+		return this.type;
 	}
 }

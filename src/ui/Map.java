@@ -38,6 +38,14 @@ public class Map extends JPanel {
 		this.bg = new ImageIcon("resources/img/fond.png");
 		this.setSize(this.boardSize);
 		this.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e)) {
+					PlayerControler._getInstance().setSelectedPlanet(null);
+				}
+			}
+
 			@Override
 			public void mousePressed(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
