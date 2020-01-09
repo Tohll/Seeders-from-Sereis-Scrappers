@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import controlers.PlanetsControler;
 import controlers.PlayerControler;
@@ -46,36 +47,44 @@ public class GraphicEngine extends JPanel implements Runnable {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(final MouseEvent e) {
-				GraphicEngine.this.boardLocation = e.getPoint();
-				GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+				if (SwingUtilities.isLeftMouseButton(e)) {
+					GraphicEngine.this.boardLocation = e.getPoint();
+					GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+				}
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(final MouseEvent e) {
-				GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				if (SwingUtilities.isLeftMouseButton(e)) {
+
+					GraphicEngine.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				}
 			}
 		});
 		this.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(final MouseEvent e) {
-				final int boardSizeY = (int) GraphicEngine.this.boardSize.getHeight();
-				final int boardSizeX = (int) GraphicEngine.this.boardSize.getWidth();
-				int x = GraphicEngine.this.getX() + e.getX() - (int) (GraphicEngine.this.boardLocation.getX());
-				int y = GraphicEngine.this.getY() + e.getY() - (int) (GraphicEngine.this.boardLocation.getY());
-				final int yOffSet = (-boardSizeY + GraphicEngine.this.getParent().getHeight()) - 2;
-				final int xOffSet = (-boardSizeX + GraphicEngine.this.getParent().getWidth()) - 2;
-				if (x > 0) {
-					x = 0;
-				} else if (x < xOffSet) {
-					x = xOffSet;
+				if (SwingUtilities.isLeftMouseButton(e)) {
+
+					final int boardSizeY = (int) GraphicEngine.this.boardSize.getHeight();
+					final int boardSizeX = (int) GraphicEngine.this.boardSize.getWidth();
+					int x = GraphicEngine.this.getX() + e.getX() - (int) (GraphicEngine.this.boardLocation.getX());
+					int y = GraphicEngine.this.getY() + e.getY() - (int) (GraphicEngine.this.boardLocation.getY());
+					final int yOffSet = (-boardSizeY + GraphicEngine.this.getParent().getHeight()) - 2;
+					final int xOffSet = (-boardSizeX + GraphicEngine.this.getParent().getWidth()) - 2;
+					if (x > 0) {
+						x = 0;
+					} else if (x < xOffSet) {
+						x = xOffSet;
+					}
+					if (y > 0) {
+						y = 0;
+					} else if (y < yOffSet) {
+						y = yOffSet;
+					}
+					GraphicEngine.this.setLocation(x, y);
 				}
-				if (y > 0) {
-					y = 0;
-				} else if (y < yOffSet) {
-					y = yOffSet;
-				}
-				GraphicEngine.this.setLocation(x, y);
 			}
 		});
 		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
