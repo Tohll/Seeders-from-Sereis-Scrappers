@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import controlers.PlayerControler;
+import stations.AbsStation;
 
 public abstract class AbsPlanet extends JLabel {
 
@@ -19,11 +20,13 @@ public abstract class AbsPlanet extends JLabel {
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
 	protected String planetSize;
+	protected AbsStation station;
 	protected String type;
 
 	protected AbsPlanet(final int number, final String filePath, final String planetSize, final Point position,
 			final String type) {
 		this.type = type;
+		this.station = null;
 		this.setName(String.valueOf(number));
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -76,5 +79,13 @@ public abstract class AbsPlanet extends JLabel {
 
 	public String getPlanetType() {
 		return this.type;
+	}
+
+	public AbsStation getStation() {
+		return this.station;
+	}
+
+	public void setStation(final AbsStation station) {
+		this.station = station;
 	}
 }

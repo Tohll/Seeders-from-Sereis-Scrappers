@@ -98,6 +98,12 @@ public class Map extends JPanel {
 	}
 
 	private void drawUI(final Graphics g) {
+		g.setColor(Color.GREEN);
+		for (final AbsPlanet planet : PlanetsControler._getInstance().getPlanets()) {
+			if (planet.getStation() != null) {
+				g.fillOval(planet.getLocation().x - 30, planet.getLocation().y - 30, 15, 15);
+			}
+		}
 		g.setColor(this.greenMonitor);
 		g.drawRect(1, 1, (int) this.boardSize.getWidth() - 4, (int) this.boardSize.getHeight() - 4);
 		g.drawRect(2, 2, (int) this.boardSize.getWidth() - 6, (int) this.boardSize.getHeight() - 6);
