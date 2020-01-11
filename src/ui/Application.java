@@ -10,8 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
+import controlers.DataControler;
 import controlers.GraphicControler;
-import tools.ConfigFileReader;
 
 /**
  * @author Seldan
@@ -20,7 +20,6 @@ import tools.ConfigFileReader;
 public class Application extends JFrame {
 
 	private static final long serialVersionUID = 6424756108494662748L;
-	private final ConfigFileReader configFileReader = new ConfigFileReader();
 
 	public Application() {
 		this.setResizable(true);
@@ -47,9 +46,9 @@ public class Application extends JFrame {
 		}
 		splitPlane.setRightComponent(jsp);
 		try {
-			this.setSize(new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("width")),
-					Integer.parseInt(this.configFileReader.getPropertieValue("height"))));
-		} catch (NumberFormatException | IOException e) {
+			this.setSize(new Dimension(Integer.parseInt(DataControler._getInstance().getConfigProperty("width")),
+					Integer.parseInt(DataControler._getInstance().getConfigProperty("height"))));
+		} catch (final NumberFormatException e) {
 			e.printStackTrace();
 		}
 		this.setLocationRelativeTo(null);

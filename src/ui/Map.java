@@ -13,10 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import controlers.DataControler;
 import controlers.PlanetsControler;
 import controlers.PlayerControler;
 import planets.AbsPlanet;
-import tools.ConfigFileReader;
 
 public class Map extends JPanel {
 
@@ -24,7 +24,6 @@ public class Map extends JPanel {
 	private final ImageIcon bg;
 	private Point boardLocation;
 	private final Dimension boardSize;
-	private final ConfigFileReader configFileReader = new ConfigFileReader();
 	private final Color greenMonitor;
 	private final PlanetsControler planetsControler;
 
@@ -32,8 +31,8 @@ public class Map extends JPanel {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		this.planetsControler = PlanetsControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
-		this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
-				Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
+		this.boardSize = new Dimension(Integer.parseInt(DataControler._getInstance().getConfigProperty("boardWidth")),
+				Integer.parseInt(DataControler._getInstance().getConfigProperty("boardHeight")));
 		this.setLayout(null);
 		this.bg = new ImageIcon("resources/img/fond.png");
 		this.setSize(this.boardSize);

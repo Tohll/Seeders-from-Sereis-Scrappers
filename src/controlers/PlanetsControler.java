@@ -2,7 +2,6 @@ package controlers;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import planets.BarrenPlanet;
 import planets.HydrogenPlanet;
 import planets.LavaPlanet;
 import planets.WaterPlanet;
-import tools.ConfigFileReader;
 
 public class PlanetsControler implements Serializable {
 
@@ -32,7 +30,6 @@ public class PlanetsControler implements Serializable {
 
 	private final String badCaliberMessage;
 	private Dimension boardSize;
-	private final ConfigFileReader configFileReader;
 	private int planetCount;
 	private final List<AbsPlanet> planets;
 	private final Random random;
@@ -41,12 +38,12 @@ public class PlanetsControler implements Serializable {
 		this.badCaliberMessage = "Bad planet caliber";
 		this.random = new Random();
 		this.planets = new ArrayList<>();
-		this.configFileReader = new ConfigFileReader();
 		try {
-			this.boardSize = new Dimension(Integer.parseInt(this.configFileReader.getPropertieValue("boardWidth")),
-					Integer.parseInt(this.configFileReader.getPropertieValue("boardHeight")));
-			this.planetCount = Integer.parseInt(this.configFileReader.getPropertieValue("planetCount"));
-		} catch (NumberFormatException | IOException e) {
+			this.boardSize = new Dimension(
+					Integer.parseInt(DataControler._getInstance().getConfigProperty("boardWidth")),
+					Integer.parseInt(DataControler._getInstance().getConfigProperty("boardHeight")));
+			this.planetCount = Integer.parseInt(DataControler._getInstance().getConfigProperty("planetCount"));
+		} catch (final NumberFormatException e) {
 			e.printStackTrace();
 		}
 		this.initPlanets();

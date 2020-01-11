@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Properties;
 
-public class ConfigFileReader implements Serializable {
+import interfaces.ExternalDataProvider;
+
+public class ConfigFileReader implements Serializable, ExternalDataProvider {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,6 +16,7 @@ public class ConfigFileReader implements Serializable {
 		// no implementatioin needed
 	}
 
+	@Override
 	public String getPropertieValue(final String key) throws IOException {
 		String result = null;
 		InputStream inputStream = null;

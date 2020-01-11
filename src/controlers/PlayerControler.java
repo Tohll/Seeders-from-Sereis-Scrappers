@@ -12,6 +12,7 @@ public class PlayerControler {
 		return SingletonHolder.INSTANCE;
 	}
 
+	private long creditAccount;
 	private AbsPlanet selectedPlanet;
 
 	private PlayerControler() {
