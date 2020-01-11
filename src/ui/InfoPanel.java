@@ -14,7 +14,7 @@ import controlers.DataControler;
 import controlers.PlayerControler;
 import interfaces.ObsInterface;
 import planets.AbsPlanet;
-import stations.Outpost;
+import stations.regulars.Outpost;
 
 public class InfoPanel extends JPanel implements ObsInterface {
 

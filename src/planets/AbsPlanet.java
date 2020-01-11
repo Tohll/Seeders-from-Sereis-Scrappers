@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import controlers.PlayerControler;
-import stations.AbsStation;
+import stations.regulars.AbsStation;
 
 public abstract class AbsPlanet extends JLabel {
 

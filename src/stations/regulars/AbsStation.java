@@ -1,4 +1,4 @@
-package stations;
+package stations.regulars;
 
 import java.io.Serializable;
 

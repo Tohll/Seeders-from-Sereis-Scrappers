@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import controlers.DataControler;
-import controlers.PlanetsControler;
+import controlers.PlanetsAndHubControler;
 import controlers.PlayerControler;
 import planets.AbsPlanet;
 
@@ -25,11 +25,11 @@ public class Map extends JPanel {
 	private Point boardLocation;
 	private final Dimension boardSize;
 	private final Color greenMonitor;
-	private final PlanetsControler planetsControler;
+	private final PlanetsAndHubControler planetsControler;
 
 	public Map() throws IOException {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		this.planetsControler = PlanetsControler._getInstance();
+		this.planetsControler = PlanetsAndHubControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(DataControler._getInstance().getConfigProperty("boardWidth")),
 				Integer.parseInt(DataControler._getInstance().getConfigProperty("boardHeight")));
@@ -90,6 +90,7 @@ public class Map extends JPanel {
 		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
 			this.add(planet);
 		}
+		this.add(this.planetsControler.getMainHub());
 	}
 
 	private void drawBackGround(final Graphics g) {
@@ -98,7 +99,7 @@ public class Map extends JPanel {
 
 	private void drawUI(final Graphics g) {
 		g.setColor(Color.GREEN);
-		for (final AbsPlanet planet : PlanetsControler._getInstance().getPlanets()) {
+		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
 			if (planet.getStation() != null) {
 				g.fillOval(planet.getLocation().x - 15, planet.getLocation().y - 15, 10, 10);
 			}

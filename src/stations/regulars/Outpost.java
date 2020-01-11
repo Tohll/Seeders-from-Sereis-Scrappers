@@ -1,4 +1,4 @@
-package stations;
+package stations.regulars;
 
 public class Outpost extends AbsStation {
 
