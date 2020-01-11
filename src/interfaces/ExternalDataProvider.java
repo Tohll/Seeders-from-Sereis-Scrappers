@@ -1,8 +1,9 @@
 package interfaces;
 
 import java.io.IOException;
+import java.util.Properties;
 
 public interface ExternalDataProvider {
-	public String getPropertieValue(final String key) throws IOException;
+	public Properties getProperties() throws IOException;
 
 }

@@ -17,8 +17,7 @@ public class ConfigFileReader implements Serializable, ExternalDataProvider {
 	}
 
 	@Override
-	public String getPropertieValue(final String key) throws IOException {
-		String result = null;
+	public Properties getProperties() throws IOException {
 		InputStream inputStream = null;
 
 		final Properties properties = new Properties();
@@ -31,14 +30,13 @@ public class ConfigFileReader implements Serializable, ExternalDataProvider {
 			} else {
 				throw new FileNotFoundException("Property file " + fileName + " not found in classpath.");
 			}
-			result = properties.getProperty(key);
 		} catch (final Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
 				inputStream.close();
 			}
 		}
-		return result;
+		return properties;
 	}
 }
