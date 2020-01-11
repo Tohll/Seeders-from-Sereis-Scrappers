@@ -30,13 +30,14 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	public InfoPanel() {
 		// Add station Button
 		this.addStation = new JButton("Add station");
-		this.addStation.setBounds(20, 100, 100, 20);
+		this.addStation.setBounds(20, 150, 100, 20);
 		this.addStation.setVisible(false);
 		this.addStation.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
 				if (InfoPanel.this.selectedPlanet != null) {
 					InfoPanel.this.selectedPlanet.setStation(new Outpost(InfoPanel.this.selectedPlanet.getName()));
+					PlayerControler._getInstance().removeCreditsFromPlayer(1000);
 				}
 			}
 		});
@@ -53,21 +54,27 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	}
 
 	private void drawUI(final Graphics g) {
+		g.setFont(this.defaultFont);
+		g.setColor(Color.WHITE);
 		if (this.selectedPlanet != null) {
 			if (this.selectedPlanet.getStation() != null) {
 				this.addStation.setVisible(false);
 
 			} else {
 				this.addStation.setVisible(true);
+				if (PlayerControler._getInstance().getPlayerAccount() >= 1000) {
+					this.addStation.setEnabled(true);
+				} else {
+					this.addStation.setEnabled(false);
+				}
 			}
-			g.setFont(this.defaultFont);
-			g.setColor(Color.WHITE);
-			g.drawString(String.format("Planet number : %s", this.selectedPlanet.getName()), 20, 40);
-			g.drawString(String.format("Planet type : %s", this.selectedPlanet.getPlanetType()), 20, 60);
-			g.drawString(String.format("Planet size : %s", this.selectedPlanet.getPlanetSize()), 20, 80);
+			g.drawString(String.format("Planet number : %s", this.selectedPlanet.getName()), 20, 80);
+			g.drawString(String.format("Planet type : %s", this.selectedPlanet.getPlanetType()), 20, 100);
+			g.drawString(String.format("Planet size : %s", this.selectedPlanet.getPlanetSize()), 20, 120);
 		} else {
 			this.addStation.setVisible(false);
 		}
+		g.drawString(String.format("§ : %d", PlayerControler._getInstance().getPlayerAccount()), 20, 40);
 	}
 
 	@Override

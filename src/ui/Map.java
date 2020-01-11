@@ -100,7 +100,7 @@ public class Map extends JPanel {
 		g.setColor(Color.GREEN);
 		for (final AbsPlanet planet : PlanetsControler._getInstance().getPlanets()) {
 			if (planet.getStation() != null) {
-				g.fillOval(planet.getLocation().x - 30, planet.getLocation().y - 30, 15, 15);
+				g.fillOval(planet.getLocation().x - 15, planet.getLocation().y - 15, 10, 10);
 			}
 		}
 		g.setColor(this.greenMonitor);
