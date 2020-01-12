@@ -1,6 +1,6 @@
 # Seeders from Sereïs : Scrappers
 
-*Version 0.4*
+*Version 0.4.1*
 
 ## Description
 
