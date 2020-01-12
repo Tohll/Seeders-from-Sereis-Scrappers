@@ -1,13 +1,21 @@
 package ships;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import planets.AbsPlanet;
 import raw_resources.AbsResource;
 
-public abstract class AbsShip extends Thread {
+public abstract class AbsShip extends Thread implements Serializable {
+
+	public static final String HAULER = "Hauler";
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 8482016902961145447L;
 
 	protected boolean docked;
 	protected AbsPlanet homeLand;
@@ -21,13 +29,13 @@ public abstract class AbsShip extends Thread {
 	protected Point target;
 	protected String type;
 
-	public AbsShip(final AbsPlanet homeLand) {
-		super();
+	public AbsShip(final AbsPlanet homeLand, final int speedIndex) {
+		super("Ship_Thread");
 		this.docked = true;
 		this.storage = new ArrayList<>();
 		this.homeLand = homeLand;
 		this.position = homeLand.getLocation();
-		this.speedIndex = 1;
+		this.speedIndex = speedIndex;
 		this.runnable = new Runnable() {
 
 			@Override
@@ -46,6 +54,10 @@ public abstract class AbsShip extends Thread {
 
 	public List<AbsResource> getStorage() {
 		return this.storage;
+	}
+
+	public String getType() {
+		return this.type;
 	}
 
 	public boolean isDocked() {
@@ -68,7 +80,7 @@ public abstract class AbsShip extends Thread {
 			} else if (this.position.y < this.target.y) {
 				this.position.y = this.position.y + 1;
 			}
-			Thread.sleep(this.speedIndex * 3);
+			Thread.sleep(this.speedIndex);
 		}
 	}
 

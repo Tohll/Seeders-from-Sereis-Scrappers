@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -101,12 +102,18 @@ public class Map extends JPanel {
 	}
 
 	private void drawShips(final Graphics g) {
+		Polygon triangle;
 		g.setColor(Color.GREEN);
 		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
 			if (!planet.getShips().isEmpty()) {
 				for (final AbsShip ship : planet.getShips()) {
 					if (!ship.isDocked()) {
-						g.fillRect(ship.getPosition().x, ship.getPosition().y, 10, 10);
+						triangle = new Polygon(
+								new int[] { ship.getPosition().x + 5, ship.getPosition().x + 10, ship.getPosition().x },
+								new int[] { ship.getPosition().y, ship.getPosition().y + 10,
+										ship.getPosition().y + 10 },
+								3);
+						g.fillPolygon(triangle);
 					}
 				}
 			}

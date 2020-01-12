@@ -8,21 +8,24 @@ import raw_resources.GenericResource;
 
 public class Hauler extends AbsShip {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 9025375384783918279L;
+
 	public Hauler(final AbsPlanet homeLand) {
-		super(homeLand);
-		this.type = "Hauler";
+		super(homeLand, 5);
+		this.type = AbsShip.HAULER;
 		this.life = 100;
 	}
 
 	@Override
 	protected void act() {
 		while (!this.isInterrupted()) {
-			this.setTarget(PlanetsAndHubControler._getInstance().getMainHub().getLocation());
 			try {
 				this.genericLoad();
 				this.move();
 				this.sellToHub();
-				this.setTarget(this.homeLand.getLocation());
 				this.move();
 			} catch (final InterruptedException e) {
 				e.printStackTrace();
@@ -38,6 +41,7 @@ public class Hauler extends AbsShip {
 			sleep(500);
 		}
 		this.docked = false;
+		this.setTarget(PlanetsAndHubControler._getInstance().getMainHub().getDockLocation());
 	}
 
 	private void sellToHub() throws InterruptedException {
@@ -49,6 +53,7 @@ public class Hauler extends AbsShip {
 		}
 		this.storage.clear();
 		this.docked = false;
+		this.setTarget(this.homeLand.getLocation());
 	}
 
 }

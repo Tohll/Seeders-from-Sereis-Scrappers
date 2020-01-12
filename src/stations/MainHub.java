@@ -34,6 +34,6 @@ public class MainHub extends JLabel {
 	@Override
 	public void setLocation(final Point point) {
 		super.setLocation(point);
-		this.dockLocation = new Point(point.x - 20, point.y - 15);
+		this.dockLocation = new Point(point.x + 20, point.y + 15);
 	}
 }

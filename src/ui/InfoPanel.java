@@ -14,8 +14,7 @@ import controlers.DataControler;
 import controlers.PlayerControler;
 import interfaces.ObsInterface;
 import planets.AbsPlanet;
-import ships.AbsShip;
-import ships.Hauler;
+import progressBars.HaulerBuildProgress;
 import stations.regulars.Outpost;
 
 public class InfoPanel extends JPanel implements ObsInterface {
@@ -28,10 +27,11 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	private final JButton addStation;
 	private final ImageIcon bg;
 	private final Font defaultFont;
+	private final Color progressBarColor;
 	private AbsPlanet selectedPlanet;
 
 	public InfoPanel() {
-		// Add station Button
+		// Add station Button ***********************
 		this.addStation = new JButton("Add station");
 		this.addStation.setBounds(20, 150, 100, 20);
 		this.addStation.setVisible(false);
@@ -45,8 +45,7 @@ public class InfoPanel extends JPanel implements ObsInterface {
 				}
 			}
 		});
-		// rest of constructor
-		// Add hauler Button
+		// Add hauler Button *************************
 		this.addHauler = new JButton("Add hauler");
 		this.addHauler.setBounds(20, 230, 100, 20);
 		this.addHauler.setVisible(false);
@@ -54,13 +53,13 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		this.addHauler.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				final AbsShip hauler = new Hauler(InfoPanel.this.selectedPlanet);
-				InfoPanel.this.selectedPlanet.addShip(hauler);
-				hauler.start();
-				PlayerControler._getInstance().removeCreditsFromPlayer(200);
+				final HaulerBuildProgress haulerBuildProgress = new HaulerBuildProgress(InfoPanel.this.selectedPlanet);
+				InfoPanel.this.selectedPlanet.setHaulerBuildProgress(haulerBuildProgress);
+				haulerBuildProgress.start();
 			}
 		});
 		// rest of constructor
+		this.progressBarColor = new Color(255, 255, 255, 125);
 		this.setLayout(null);
 		this.add(this.addStation);
 		this.add(this.addHauler);
@@ -73,12 +72,28 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		g.drawImage(this.bg.getImage(), 0, 0, null);
 	}
 
+	private void drawProgressBars(final Graphics g) {
+		if (this.selectedPlanet != null && this.selectedPlanet.getHaulerBuildProgress() != null) {
+			final double div = (double) this.selectedPlanet.getHaulerBuildProgress().getCurrentTimer()
+					/ (double) this.selectedPlanet.getHaulerBuildProgress().getMaxTimer();
+			final double lifePercentage = 100d * div;
+			final double aDouble = 100 / 100d;
+			final double bDouble = aDouble * lifePercentage;
+			final int percentWidth = (int) (this.round(bDouble, 2));
+			g.setColor(this.progressBarColor);
+			g.fillRect(150, 230, percentWidth, 17);
+			g.setColor(Color.WHITE);
+			g.drawRect(150, 230, 100, 17);
+		}
+	}
+
 	private void drawUI(final Graphics g) {
 		g.setFont(this.defaultFont);
 		g.setColor(Color.WHITE);
 		if (this.selectedPlanet != null) {
 			if (this.selectedPlanet.getStation() != null) {
-				if (PlayerControler._getInstance().getPlayerAccount() >= 200) {
+				if (PlayerControler._getInstance().getPlayerAccount() >= 200
+						&& this.selectedPlanet.getHaulerBuildProgress() == null) {
 					this.addHauler.setEnabled(true);
 				} else {
 					this.addHauler.setEnabled(false);
@@ -118,6 +133,12 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		super.paintComponent(g);
 		this.drawBackGround(g);
 		this.drawUI(g);
+		this.drawProgressBars(g);
+	}
+
+	private double round(final double value, final int precision) {
+		final int scale = (int) Math.pow(10, precision);
+		return (double) Math.round(value * scale) / scale;
 	}
 
 	@Override

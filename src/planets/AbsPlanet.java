@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import controlers.PlayerControler;
+import progressBars.HaulerBuildProgress;
 import ships.AbsShip;
 import stations.regulars.AbsStation;
 
@@ -22,6 +23,7 @@ public abstract class AbsPlanet extends JLabel {
 	public static final String M = "Medium";
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
+	protected HaulerBuildProgress haulerBuildProgress;
 	protected String planetSize;
 	protected List<AbsShip> ships;
 	protected AbsStation station;
@@ -32,6 +34,7 @@ public abstract class AbsPlanet extends JLabel {
 		this.ships = new ArrayList<>();
 		this.type = type;
 		this.station = null;
+		this.haulerBuildProgress = null;
 		this.setName(String.valueOf(number));
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -82,6 +85,10 @@ public abstract class AbsPlanet extends JLabel {
 		this.ships.add(ship);
 	}
 
+	public HaulerBuildProgress getHaulerBuildProgress() {
+		return this.haulerBuildProgress;
+	}
+
 	public String getPlanetSize() {
 		return this.planetSize;
 	}
@@ -96,6 +103,22 @@ public abstract class AbsPlanet extends JLabel {
 
 	public AbsStation getStation() {
 		return this.station;
+	}
+
+	public void receiveShip(final AbsShip ship) {
+		switch (ship.getType()) {
+		case AbsShip.HAULER:
+			this.haulerBuildProgress = null;
+			break;
+		default:
+			throw new IllegalArgumentException("Planet received a bad type of ship");
+		}
+		this.ships.add(ship);
+		ship.start();
+	}
+
+	public void setHaulerBuildProgress(final HaulerBuildProgress haulerBuildProgress) {
+		this.haulerBuildProgress = haulerBuildProgress;
 	}
 
 	public void setStation(final AbsStation station) {
