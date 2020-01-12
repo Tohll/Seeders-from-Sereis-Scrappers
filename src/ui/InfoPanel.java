@@ -32,6 +32,7 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		this.addStation = new JButton("Add station");
 		this.addStation.setBounds(20, 150, 100, 20);
 		this.addStation.setVisible(false);
+		this.addStation.setToolTipText("Cost: §1000");
 		this.addStation.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
@@ -44,7 +45,7 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		// rest of constructor
 		this.setLayout(null);
 		this.add(this.addStation);
-		this.defaultFont = new Font("Arial", Font.BOLD, 18);
+		this.defaultFont = new Font("Arial", Font.PLAIN, 17);
 		this.bg = new ImageIcon("resources/img/infoPanel.jpeg");
 		DataControler._getInstance().observePlayer(this);
 	}
@@ -59,6 +60,8 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		if (this.selectedPlanet != null) {
 			if (this.selectedPlanet.getStation() != null) {
 				this.addStation.setVisible(false);
+				g.drawString("[-STATION-]", 20, 170);
+				g.drawString(String.format("Type : %s", this.selectedPlanet.getStation().getType()), 20, 190);
 
 			} else {
 				this.addStation.setVisible(true);
@@ -75,6 +78,8 @@ public class InfoPanel extends JPanel implements ObsInterface {
 			this.addStation.setVisible(false);
 		}
 		g.drawString(String.format("§ : %d", PlayerControler._getInstance().getPlayerAccount()), 20, 40);
+		g.drawLine(0, 50, this.getParent().getWidth(), 50);
+		g.drawLine(0, 140, this.getParent().getWidth(), 140);
 	}
 
 	@Override

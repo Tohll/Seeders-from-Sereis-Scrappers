@@ -17,4 +17,8 @@ public abstract class AbsStation implements Serializable {
 		return this.name;
 	}
 
+	public String getType() {
+		return this.type;
+	}
+
 }

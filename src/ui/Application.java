@@ -27,10 +27,11 @@ public class Application extends JFrame {
 		this.setTitle("Seeders from Sereïs : Scrappers");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JSplitPane splitPlane = new JSplitPane();
-		splitPlane.setOneTouchExpandable(true);
 		splitPlane.setContinuousLayout(true);
+		splitPlane.setEnabled(false);
 		splitPlane.resetToPreferredSizes();
-		splitPlane.setDividerLocation(400);
+		splitPlane.setDividerLocation(300);
+		splitPlane.setDividerSize(1);
 		JScrollPane jsp = null;
 		final JPanel infoPanel = new InfoPanel();
 		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);
