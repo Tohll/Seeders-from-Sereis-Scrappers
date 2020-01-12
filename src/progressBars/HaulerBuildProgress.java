@@ -25,6 +25,7 @@ public class HaulerBuildProgress extends Thread implements Serializable {
 
 			@Override
 			public void run() {
+				PlayerControler._getInstance().removeCreditsFromPlayer(200);
 				for (int i = 0; i <= HaulerBuildProgress.this.maxTimer; i++) {
 					HaulerBuildProgress.this.currentTimer = i;
 					try {
@@ -36,7 +37,6 @@ public class HaulerBuildProgress extends Thread implements Serializable {
 				}
 
 				HaulerBuildProgress.this.hostPlanet.receiveShip(new Hauler(HaulerBuildProgress.this.hostPlanet));
-				PlayerControler._getInstance().removeCreditsFromPlayer(200);
 			}
 		};
 	}

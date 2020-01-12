@@ -156,7 +156,6 @@ public class PlanetsAndHubControler implements Serializable {
 				throw new IllegalArgumentException("Bad planet type");
 			}
 		}
-		System.out.println("Planet count/initialized : " + this.planets.size());
 	}
 
 }
