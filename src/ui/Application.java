@@ -53,6 +53,7 @@ public class Application extends JFrame {
 		}
 		this.setLocationRelativeTo(null);
 		final Thread graphicControler = new Thread(new GraphicControler(infoPanel, map));
+		graphicControler.setName("Graphic_controler");
 		graphicControler.start();
 	}
 }
