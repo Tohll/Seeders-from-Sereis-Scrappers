@@ -60,8 +60,11 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		if (this.selectedPlanet != null) {
 			if (this.selectedPlanet.getStation() != null) {
 				this.addStation.setVisible(false);
+				g.setFont(new Font("Arial", Font.BOLD, 17));
 				g.drawString("[-STATION-]", 20, 170);
+				g.setFont(this.defaultFont);
 				g.drawString(String.format("Type : %s", this.selectedPlanet.getStation().getType()), 20, 190);
+				g.drawString(String.format("Name : %s", this.selectedPlanet.getStation().getName()), 20, 210);
 
 			} else {
 				this.addStation.setVisible(true);

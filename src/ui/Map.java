@@ -45,6 +45,8 @@ public class Map extends JPanel {
 				}
 			}
 
+		});
+		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
