@@ -6,6 +6,8 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import raw_resources.AbsResource;
+
 public class MainHub extends JLabel {
 
 	/**
@@ -23,6 +25,10 @@ public class MainHub extends JLabel {
 
 	public Point getDockLocation() {
 		return this.dockLocation;
+	}
+
+	public int sellToHub(final AbsResource resourceStack) {
+		return (resourceStack.getPricePerUnit() * resourceStack.getStackSize());
 	}
 
 	@Override

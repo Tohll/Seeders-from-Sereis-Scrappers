@@ -28,10 +28,9 @@ public class Application extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JSplitPane splitPlane = new JSplitPane();
 		splitPlane.setContinuousLayout(true);
-		splitPlane.setEnabled(false);
 		splitPlane.resetToPreferredSizes();
 		splitPlane.setDividerLocation(300);
-		splitPlane.setDividerSize(1);
+		splitPlane.setDividerSize(0);
 		JScrollPane jsp = null;
 		final JPanel infoPanel = new InfoPanel();
 		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);

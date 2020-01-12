@@ -17,6 +17,7 @@ import controlers.DataControler;
 import controlers.PlanetsAndHubControler;
 import controlers.PlayerControler;
 import planets.AbsPlanet;
+import ships.AbsShip;
 
 public class Map extends JPanel {
 
@@ -99,6 +100,19 @@ public class Map extends JPanel {
 		g.drawImage(this.bg.getImage(), 0, 0, (int) this.boardSize.getWidth(), (int) this.boardSize.getHeight(), null);
 	}
 
+	private void drawShips(final Graphics g) {
+		g.setColor(Color.GREEN);
+		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
+			if (!planet.getShips().isEmpty()) {
+				for (final AbsShip ship : planet.getShips()) {
+					if (!ship.isDocked()) {
+						g.fillRect(ship.getPosition().x, ship.getPosition().y, 10, 10);
+					}
+				}
+			}
+		}
+	}
+
 	private void drawUI(final Graphics g) {
 		g.setColor(Color.GREEN);
 		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
@@ -132,6 +146,7 @@ public class Map extends JPanel {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		this.drawBackGround(g);
+		this.drawShips(g);
 		this.drawUI(g);
 	}
 }

@@ -6,11 +6,14 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import controlers.PlayerControler;
+import ships.AbsShip;
 import stations.regulars.AbsStation;
 
 public abstract class AbsPlanet extends JLabel {
@@ -20,11 +23,13 @@ public abstract class AbsPlanet extends JLabel {
 	public static final String S = "Small";
 	private static final long serialVersionUID = 8042374841747079229L;
 	protected String planetSize;
+	protected List<AbsShip> ships;
 	protected AbsStation station;
 	protected String type;
 
 	protected AbsPlanet(final int number, final String filePath, final String planetSize, final Point position,
 			final String type) {
+		this.ships = new ArrayList<>();
 		this.type = type;
 		this.station = null;
 		this.setName(String.valueOf(number));
@@ -73,12 +78,20 @@ public abstract class AbsPlanet extends JLabel {
 		}
 	}
 
+	public void addShip(final AbsShip ship) {
+		this.ships.add(ship);
+	}
+
 	public String getPlanetSize() {
 		return this.planetSize;
 	}
 
 	public String getPlanetType() {
 		return this.type;
+	}
+
+	public List<AbsShip> getShips() {
+		return this.ships;
 	}
 
 	public AbsStation getStation() {
