@@ -20,13 +20,13 @@ public class HaulerBuildProgress extends Thread implements Serializable {
 	public HaulerBuildProgress(final AbsPlanet hostPlanet) {
 		super("Hauler_Buld_Progress");
 		this.hostPlanet = hostPlanet;
-		this.maxTimer = 10000;
+		this.maxTimer = 50000;
 		this.runnable = new Runnable() {
 
 			@Override
 			public void run() {
 				PlayerControler._getInstance().removeCreditsFromPlayer(200);
-				for (int i = 0; i <= HaulerBuildProgress.this.maxTimer; i++) {
+				for (int i = 0; i <= HaulerBuildProgress.this.maxTimer; i = i + 2) {
 					HaulerBuildProgress.this.currentTimer = i;
 					try {
 						sleep(1);
