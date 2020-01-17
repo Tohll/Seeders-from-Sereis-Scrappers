@@ -18,20 +18,31 @@ public class DataControler {
 		return SingletonHolder.INSTANCE;
 	}
 
+	private Properties catapults;
 	private final List<ObsInterface> playerObservers;
 	private Properties properties;
 
 	private DataControler() {
 		this.playerObservers = new ArrayList<>();
 		this.initProperties();
+		this.initCatapults();
 	}
 
 	public String getConfigProperty(final String key) {
 		return this.properties.getProperty(key);
 	}
 
+	private void initCatapults() {
+		final ConfigFileReader configFileReader = new ConfigFileReader("config/catapults.properties.xml");
+		try {
+			this.catapults = configFileReader.getProperties();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void initProperties() {
-		final ConfigFileReader configFileReader = new ConfigFileReader();
+		final ConfigFileReader configFileReader = new ConfigFileReader("config/config.properties.xml");
 		try {
 			this.properties = configFileReader.getProperties();
 		} catch (final IOException e) {

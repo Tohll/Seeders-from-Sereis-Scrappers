@@ -12,7 +12,6 @@ import planets.BarrenPlanet;
 import planets.HydrogenPlanet;
 import planets.LavaPlanet;
 import planets.WaterPlanet;
-import stations.MainHub;
 
 public class PlanetsAndHubControler implements Serializable {
 
@@ -31,7 +30,7 @@ public class PlanetsAndHubControler implements Serializable {
 
 	private final String badCaliberMessage;
 	private Dimension boardSize;
-	private final MainHub mainHub;
+	//	private final MainHub mainHub;
 	private int planetCount;
 	private final List<AbsPlanet> planets;
 	private final Random random;
@@ -48,13 +47,13 @@ public class PlanetsAndHubControler implements Serializable {
 		} catch (final NumberFormatException e) {
 			e.printStackTrace();
 		}
-		this.mainHub = new MainHub();
-		this.initPlanetsAndMainHub();
+		//		this.mainHub = new MainHub();
+		//		this.initPlanetsAndMainHub();
 	}
 
-	public MainHub getMainHub() {
-		return this.mainHub;
-	}
+	//	public MainHub getMainHub() {
+	//		return this.mainHub;
+	//	}
 
 	public List<AbsPlanet> getPlanets() {
 		return this.planets;
@@ -66,8 +65,8 @@ public class PlanetsAndHubControler implements Serializable {
 		final int xOffSet = this.boardSize.width - (boardDeadBorder * 2);
 		final int yOffSet = this.boardSize.height - (boardDeadBorder * 2);
 
-		this.mainHub.setLocation(new Point(this.random.nextInt(xOffSet) + boardDeadBorder,
-				this.random.nextInt(yOffSet) + boardDeadBorder));
+		//		this.mainHub.setLocation(new Point(this.random.nextInt(xOffSet) + boardDeadBorder,
+		//				this.random.nextInt(yOffSet) + boardDeadBorder));
 
 		for (int i = 1; i <= this.planetCount; i++) {
 			final Point position = new Point(this.random.nextInt(xOffSet) + boardDeadBorder,

@@ -11,9 +11,10 @@ import interfaces.ExternalDataProvider;
 public class ConfigFileReader implements Serializable, ExternalDataProvider {
 
 	private static final long serialVersionUID = 1L;
+	private final String fileName;
 
-	public ConfigFileReader() {
-		// no implementatioin needed
+	public ConfigFileReader(final String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Override
@@ -21,14 +22,13 @@ public class ConfigFileReader implements Serializable, ExternalDataProvider {
 		InputStream inputStream = null;
 
 		final Properties properties = new Properties();
-		final String fileName = "config/config.properties";
 		try {
-			inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+			inputStream = this.getClass().getClassLoader().getResourceAsStream(this.fileName);
 
 			if (inputStream != null) {
-				properties.load(inputStream);
+				properties.loadFromXML(inputStream);
 			} else {
-				throw new FileNotFoundException("Property file " + fileName + " not found in classpath.");
+				throw new FileNotFoundException("Property file " + this.fileName + " not found in classpath.");
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();

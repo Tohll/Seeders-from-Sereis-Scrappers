@@ -32,11 +32,7 @@ public class Application extends JFrame {
 		splitPlane.setDividerLocation(300);
 		splitPlane.setDividerSize(0);
 		JScrollPane jsp = null;
-		final JPanel infoPanel = new InfoPanel();
-		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);
-		this.getContentPane().add(splitPlane);
-		splitPlane.setLeftComponent(infoScrollPane);
-		JPanel map = null;
+		Map map = null;
 		try {
 			map = new Map();
 			jsp = new JScrollPane(map, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
@@ -44,6 +40,10 @@ public class Application extends JFrame {
 		} catch (NumberFormatException | IOException e2) {
 			e2.printStackTrace();
 		}
+		final JPanel infoPanel = new InfoPanel(map);
+		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);
+		this.getContentPane().add(splitPlane);
+		splitPlane.setLeftComponent(infoScrollPane);
 		splitPlane.setRightComponent(jsp);
 		try {
 			this.setSize(new Dimension(Integer.parseInt(DataControler._getInstance().getConfigProperty("width")),

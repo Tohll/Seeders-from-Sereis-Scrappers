@@ -27,16 +27,18 @@ public class Map extends JPanel {
 	private Point boardLocation;
 	private final Dimension boardSize;
 	private final Color greenMonitor;
+	private final Point mouseCoordinates;
 	private final PlanetsAndHubControler planetsControler;
 
 	public Map() throws IOException {
+		this.mouseCoordinates = new Point(0, 0);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		this.planetsControler = PlanetsAndHubControler._getInstance();
 		this.greenMonitor = new Color(0.3f, 1f, 0, 0.45f);
 		this.boardSize = new Dimension(Integer.parseInt(DataControler._getInstance().getConfigProperty("boardWidth")),
 				Integer.parseInt(DataControler._getInstance().getConfigProperty("boardHeight")));
 		this.setLayout(null);
-		this.bg = new ImageIcon("resources/img/fond.png");
+		this.bg = new ImageIcon("resources/img/fond2.png");
 		this.setSize(this.boardSize);
 		this.addMouseListener(new MouseAdapter() {
 
@@ -55,6 +57,13 @@ public class Map extends JPanel {
 					Map.this.boardLocation = e.getPoint();
 					Map.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				}
+			}
+		});
+		this.addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseMoved(final MouseEvent e) {
+				Map.this.mouseCoordinates.x = e.getX();
+				Map.this.mouseCoordinates.y = e.getY();
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
@@ -94,7 +103,7 @@ public class Map extends JPanel {
 		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
 			this.add(planet);
 		}
-		this.add(this.planetsControler.getMainHub());
+		//		this.add(this.planetsControler.getMainHub());
 	}
 
 	private void drawBackGround(final Graphics g) {
@@ -142,6 +151,10 @@ public class Map extends JPanel {
 			g.drawRect(selectedPlanet.getLocation().x, selectedPlanet.getLocation().y, selectedPlanet.getSize().width,
 					selectedPlanet.getSize().height);
 		}
+	}
+
+	public Point getMouseLocationOnBoard() {
+		return this.mouseCoordinates;
 	}
 
 	@Override

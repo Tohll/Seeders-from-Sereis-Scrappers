@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>application.properties</comment>
+    <entry key="Sereïs">600,3000</entry>
+    <entry key="Mzat">1230,3530</entry>
+</properties>
