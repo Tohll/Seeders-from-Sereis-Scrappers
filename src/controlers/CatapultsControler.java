@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import catapults.Catapult;
+import tools.Line;
 
 public class CatapultsControler {
 
@@ -19,25 +20,33 @@ public class CatapultsControler {
 	}
 
 	private Map<String, Catapult> catapults;
+	private final List<Line> catapultsPath;
 
 	private CatapultsControler() {
+		this.catapultsPath = new ArrayList<>();
 		this.initCatapults();
+		this.initPaths();
 	}
 
 	public Map<String, Catapult> getCatapults() {
 		return this.catapults;
 	}
 
+	public List<Line> getCatapultsPath() {
+		return this.catapultsPath;
+	}
+
 	private void initCatapults() {
 		Catapult catapult;
 		int x;
 		int y;
-		final List<String> children = new ArrayList<>();
+		List<String> children;
 		String rawData;
 		String[] substr;
 		final Set<String> keys = DataControler._getInstance().getCatapults().stringPropertyNames();
 		this.catapults = new HashMap<>();
 		for (final String key : keys) {
+			children = new ArrayList<>();
 			rawData = DataControler._getInstance().getCatapults().getProperty(key);
 			substr = rawData.split(",");
 			x = Integer.parseInt(substr[0]);
@@ -49,6 +58,19 @@ public class CatapultsControler {
 			}
 			catapult = new Catapult(key, x, y, children);
 			this.catapults.put(key, catapult);
+		}
+	}
+
+	private void initPaths() {
+		Catapult childCatapult;
+		for (final Map.Entry<String, Catapult> entry : this.catapults.entrySet()) {
+			if (!entry.getValue().getChildren().isEmpty()) {
+				for (final String child : entry.getValue().getChildren()) {
+					childCatapult = this.catapults.get(child);
+					this.catapultsPath
+					.add(new Line(entry.getValue().getDockLocation(), childCatapult.getDockLocation()));
+				}
+			}
 		}
 	}
 

@@ -41,16 +41,16 @@ public class Hauler extends AbsShip {
 		// this.setTarget(PlanetsAndHubControler._getInstance().getMainHub().getDockLocation());
 	}
 
-	//	private void sellToHub() throws InterruptedException {
-	//		this.docked = true;
-	//		for (final AbsResource resource : this.storage) {
-	//						PlayerControler._getInstance()
-	//						.addCreditsToPlayer(PlanetsAndHubControler._getInstance().getMainHub().sellToHub(resource));
-	//			sleep(750);
-	//		}
-	//		this.storage.clear();
-	//		this.docked = false;
-	//		this.setTarget(this.homeLand.getLocation());
-	//	}
+	// private void sellToHub() throws InterruptedException {
+	// this.docked = true;
+	// for (final AbsResource resource : this.storage) {
+	// PlayerControler._getInstance()
+	// .addCreditsToPlayer(PlanetsAndHubControler._getInstance().getMainHub().sellToHub(resource));
+	// sleep(750);
+	// }
+	// this.storage.clear();
+	// this.docked = false;
+	// this.setTarget(this.homeLand.getLocation());
+	// }
 
 }

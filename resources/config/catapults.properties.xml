@@ -2,17 +2,24 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>catapults.properties</comment>
-    <entry key="SES-001">600,3000</entry>
-    <entry key="MAT-001">1230,3530</entry>
-    <entry key="LAV-001">1320,4000</entry>
-    <entry key="LAV-002">1496,4150</entry>
-    <entry key="EFI-001">1904,4692</entry>
-    <entry key="ACA-001">1765,3828</entry>
-    <entry key="AES-001">1734,3067</entry>
-    <entry key="AES-002">1131,2660</entry>
-    <entry key="AES-003">1765,3828</entry>
-    <entry key="DEH-001">969,2099</entry>
-    <entry key="DEH-002">1034,1216</entry>
-    <entry key="NEF-001">1133,644</entry>
+    <!--Sereis-->
+    <entry key="SES-001">600,3000,AES-002,MAT-001</entry>
+    <!--Mzat-->
+    <entry key="MAT-001">1230,3530,LAV-001,ACA-001</entry>
+    <!--Lank Teh, Ank Veo-->
+    <entry key="LAV-001">1320,4000,LAV-002,ACA-001</entry>
+    <entry key="LAV-002">1496,4150,EFI-001</entry>
+    <!--Efein-->
+    <entry key="EFI-001">1904,4692,ACA-001</entry>
+    <!--Acana-->
+    <entry key="ACA-001">1765,3828,AES-001</entry>
+    <!--Ancien empire sereen-->
+    <entry key="AES-001">1734,3067,AES-002</entry>
+    <entry key="AES-002">1131,2660,DEH-001</entry>
+    <!--Detroit d'helion-->
+    <entry key="DEH-001">969,2099,DEH-002</entry>
+    <entry key="DEH-002">1034,1216,NEF-001</entry>
+    <!--Nef-->
+    <entry key="NEF-001">1133,644,NEF-002</entry>
     <entry key="NEF-002">659,248</entry>
 </properties>

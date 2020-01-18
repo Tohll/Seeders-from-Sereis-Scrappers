@@ -21,6 +21,7 @@ import controlers.PlanetsAndHubControler;
 import controlers.PlayerControler;
 import planets.AbsPlanet;
 import ships.AbsShip;
+import tools.Line;
 
 public class MapPanel extends JPanel {
 
@@ -139,6 +140,9 @@ public class MapPanel extends JPanel {
 
 	private void drawUI(final Graphics g) {
 		g.setColor(Color.GREEN);
+		for (final Line line : this.catapultControler.getCatapultsPath()) {
+			g.drawLine(line.getBegin().x, line.getBegin().y, line.getEnd().x, line.getEnd().y);
+		}
 		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
 			if (planet.getStation() != null) {
 				g.fillOval(planet.getLocation().x - 15, planet.getLocation().y - 15, 10, 10);
