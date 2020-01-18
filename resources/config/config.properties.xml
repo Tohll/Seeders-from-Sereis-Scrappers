@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>application.properties</comment>
-    <entry key="width">1800</entry>
-    <entry key="height">950</entry>
+    <entry key="width">800</entry>
+    <entry key="height">600</entry>
     <entry key="boardWidth">2000</entry>
     <entry key="boardHeight">5206</entry>
     <entry key="planetCount">12</entry>

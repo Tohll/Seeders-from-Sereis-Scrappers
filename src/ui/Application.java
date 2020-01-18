@@ -32,9 +32,9 @@ public class Application extends JFrame {
 		splitPlane.setDividerLocation(300);
 		splitPlane.setDividerSize(0);
 		JScrollPane jsp = null;
-		Map map = null;
+		MapPanel map = null;
 		try {
-			map = new Map();
+			map = new MapPanel();
 			jsp = new JScrollPane(map, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		} catch (NumberFormatException | IOException e2) {

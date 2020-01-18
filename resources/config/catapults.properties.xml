@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <comment>application.properties</comment>
-    <entry key="Sereïs">600,3000</entry>
-    <entry key="Mzat">1230,3530</entry>
+    <comment>catapults.properties</comment>
+    <entry key="SES-001">600,3000</entry>
+    <entry key="MAT-001">1230,3530</entry>
+    <entry key="LAV-001">1320,4000</entry>
+    <entry key="LAV-002">1496,4150</entry>
+    <entry key="EFI-001">1904,4692</entry>
+    <entry key="ACA-001">1765,3828</entry>
+    <entry key="AES-001">1734,3067</entry>
+    <entry key="AES-002">1131,2660</entry>
+    <entry key="AES-003">1765,3828</entry>
+    <entry key="DEH-001">969,2099</entry>
+    <entry key="DEH-002">1034,1216</entry>
+    <entry key="NEF-001">1133,644</entry>
+    <entry key="NEF-002">659,248</entry>
 </properties>

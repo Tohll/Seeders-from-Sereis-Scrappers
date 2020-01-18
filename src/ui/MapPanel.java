@@ -9,28 +9,32 @@ import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import controlers.CatapultsControler;
 import controlers.DataControler;
 import controlers.PlanetsAndHubControler;
 import controlers.PlayerControler;
 import planets.AbsPlanet;
 import ships.AbsShip;
 
-public class Map extends JPanel {
+public class MapPanel extends JPanel {
 
 	private static final long serialVersionUID = -7273880090886312807L;
 	private final ImageIcon bg;
 	private Point boardLocation;
 	private final Dimension boardSize;
+	private final CatapultsControler catapultControler;
 	private final Color greenMonitor;
 	private final Point mouseCoordinates;
 	private final PlanetsAndHubControler planetsControler;
 
-	public Map() throws IOException {
+	public MapPanel() throws IOException {
+		this.catapultControler = CatapultsControler._getInstance();
 		this.mouseCoordinates = new Point(0, 0);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		this.planetsControler = PlanetsAndHubControler._getInstance();
@@ -54,16 +58,16 @@ public class Map extends JPanel {
 			@Override
 			public void mousePressed(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					Map.this.boardLocation = e.getPoint();
-					Map.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+					MapPanel.this.boardLocation = e.getPoint();
+					MapPanel.this.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				}
 			}
 		});
 		this.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseMoved(final MouseEvent e) {
-				Map.this.mouseCoordinates.x = e.getX();
-				Map.this.mouseCoordinates.y = e.getY();
+				MapPanel.this.mouseCoordinates.x = e.getX();
+				MapPanel.this.mouseCoordinates.y = e.getY();
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
@@ -71,7 +75,7 @@ public class Map extends JPanel {
 			public void mouseReleased(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 
-					Map.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					MapPanel.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 			}
 		});
@@ -80,12 +84,12 @@ public class Map extends JPanel {
 			public void mouseDragged(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 
-					final int boardSizeY = (int) Map.this.boardSize.getHeight();
-					final int boardSizeX = (int) Map.this.boardSize.getWidth();
-					int x = Map.this.getX() + e.getX() - (int) (Map.this.boardLocation.getX());
-					int y = Map.this.getY() + e.getY() - (int) (Map.this.boardLocation.getY());
-					final int yOffSet = (-boardSizeY + Map.this.getParent().getHeight()) - 2;
-					final int xOffSet = (-boardSizeX + Map.this.getParent().getWidth()) - 2;
+					final int boardSizeY = (int) MapPanel.this.boardSize.getHeight();
+					final int boardSizeX = (int) MapPanel.this.boardSize.getWidth();
+					int x = MapPanel.this.getX() + e.getX() - (int) (MapPanel.this.boardLocation.getX());
+					int y = MapPanel.this.getY() + e.getY() - (int) (MapPanel.this.boardLocation.getY());
+					final int yOffSet = (-boardSizeY + MapPanel.this.getParent().getHeight()) - 2;
+					final int xOffSet = (-boardSizeX + MapPanel.this.getParent().getWidth()) - 2;
 					if (x > 0) {
 						x = 0;
 					} else if (x < xOffSet) {
@@ -96,14 +100,18 @@ public class Map extends JPanel {
 					} else if (y < yOffSet) {
 						y = yOffSet;
 					}
-					Map.this.setLocation(x, y);
+					MapPanel.this.setLocation(x, y);
 				}
 			}
 		});
 		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
 			this.add(planet);
 		}
-		//		this.add(this.planetsControler.getMainHub());
+		// this.add(this.planetsControler.getMainHub());
+		final Set<String> keys = this.catapultControler.getCatapults().keySet();
+		for (final String key : keys) {
+			this.add(this.catapultControler.getCatapults().get(key));
+		}
 	}
 
 	private void drawBackGround(final Graphics g) {

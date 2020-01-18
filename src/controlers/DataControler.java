@@ -28,6 +28,10 @@ public class DataControler {
 		this.initCatapults();
 	}
 
+	public Properties getCatapults() {
+		return this.catapults;
+	}
+
 	public String getConfigProperty(final String key) {
 		return this.properties.getProperty(key);
 	}

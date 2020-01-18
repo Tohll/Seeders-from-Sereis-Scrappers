@@ -27,11 +27,11 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	private final JButton addStation;
 	private final ImageIcon bg;
 	private final Font defaultFont;
-	private final Map map;
+	private final MapPanel map;
 	private final Color progressBarColor;
 	private AbsPlanet selectedPlanet;
 
-	public InfoPanel(final Map map) {
+	public InfoPanel(final MapPanel map) {
 		// Add station Button ***********************
 		this.addStation = new JButton("Add station");
 		this.addStation.setBounds(20, 150, 100, 20);
@@ -126,8 +126,8 @@ public class InfoPanel extends JPanel implements ObsInterface {
 			this.addHauler.setVisible(false);
 		}
 		g.drawString(String.format("§ : %d", PlayerControler._getInstance().getPlayerAccount()), 20, 40);
-		g.drawString(String.format("Coord : %d, %d", this.map.getMouseLocationOnBoard().x, this.map.getMouseLocationOnBoard().y),
-				100, 40);
+		g.drawString(String.format("Coord : %d, %d", this.map.getMouseLocationOnBoard().x,
+				this.map.getMouseLocationOnBoard().y), 100, 40);
 		g.drawLine(0, 50, this.getParent().getWidth(), 50);
 		g.drawLine(0, 140, this.getParent().getWidth(), 140);
 	}
