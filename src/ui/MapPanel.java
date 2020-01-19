@@ -38,7 +38,7 @@ public class MapPanel extends JPanel {
 	private final PlanetsAndHubControler planetsControler;
 
 	public MapPanel() throws IOException {
-		this.defaultFont = new Font("Arial", Font.BOLD, 11);
+		this.defaultFont = new Font("Arial", Font.PLAIN, 11);
 		this.catapultControler = CatapultsControler._getInstance();
 		this.mouseCoordinates = new Point(0, 0);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
