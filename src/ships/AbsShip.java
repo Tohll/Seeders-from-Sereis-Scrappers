@@ -2,9 +2,12 @@ package ships;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import catapults.Catapult;
+import interfaces.OrderInterface;
 import raw_resources.AbsResource;
 import tools.Vector2;
 
@@ -17,23 +20,26 @@ public abstract class AbsShip extends Thread implements Serializable {
 	 */
 	private static final long serialVersionUID = 8482016902961145447L;
 
+	protected OrderInterface currentOrder;
 	protected Vector2 direction;
+
 	protected float distance;
 
 	protected boolean docked;
-
 	protected Catapult homeLand;
 	protected int life;
+	protected Map<Integer, OrderInterface> orders;
 	protected Vector2 position;
 	protected Runnable runnable;
-	protected float speed;
+	protected long speed;
 	protected Vector2 start;
 	protected List<AbsResource> storage;
 	protected Vector2 target;
 	protected String type;
 
-	public AbsShip(final Catapult homeLand, final float speed) {
+	public AbsShip(final Catapult homeLand, final long speed) {
 		super("Ship_Thread");
+		this.orders = new HashMap<>();
 		this.docked = true;
 		this.storage = new ArrayList<>();
 		this.homeLand = homeLand;
@@ -44,13 +50,35 @@ public abstract class AbsShip extends Thread implements Serializable {
 
 			@Override
 			public void run() {
-				AbsShip.this.act();
-
+				while (!AbsShip.this.isInterrupted()) {
+					while (AbsShip.this.orders.isEmpty()) {
+						try {
+							sleep(1000);
+						} catch (final InterruptedException e) {
+							e.printStackTrace();
+							AbsShip.this.interrupt();
+						}
+					}
+					for (int i = 0; i < AbsShip.this.orders.size(); i++) {
+						AbsShip.this.currentOrder = AbsShip.this.orders.get(i);
+						AbsShip.this.currentOrder.executeOrder();
+					}
+				}
 			}
 		};
 	}
 
-	protected abstract void act();
+	public String getCurrentOrder() {
+		return this.currentOrder != null ? this.currentOrder.getComment() : "Iddle.";
+	}
+
+	public Catapult getHomeLand() {
+		return this.homeLand;
+	}
+
+	public Map<Integer, OrderInterface> getOrders() {
+		return this.orders;
+	}
 
 	public Vector2 getPosition() {
 		return this.position;
@@ -72,11 +100,11 @@ public abstract class AbsShip extends Thread implements Serializable {
 		this.storage.add(resourceStack);
 	}
 
-	protected void move() throws InterruptedException {
+	public void move() throws InterruptedException {
 		while (Vector2.distance(this.start, this.position) < this.distance) {
-			this.position.x += this.direction.x * this.speed;
-			this.position.y += this.direction.y * this.speed;
-			Thread.sleep(10);
+			this.position.x += this.direction.x;
+			this.position.y += this.direction.y;
+			Thread.sleep(this.speed);
 		}
 	}
 
@@ -85,6 +113,10 @@ public abstract class AbsShip extends Thread implements Serializable {
 		if (this.runnable != null) {
 			this.runnable.run();
 		}
+	}
+
+	public void setDocked(final boolean docked) {
+		this.docked = docked;
 	}
 
 	public void setTarget(final Vector2 target) {

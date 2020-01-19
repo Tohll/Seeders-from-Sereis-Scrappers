@@ -3,6 +3,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -31,11 +32,13 @@ public class MapPanel extends JPanel {
 	private Point boardLocation;
 	private final Dimension boardSize;
 	private final CatapultsControler catapultControler;
+	private final Font defaultFont;
 	private final Color greenMonitor;
 	private final Point mouseCoordinates;
 	private final PlanetsAndHubControler planetsControler;
 
 	public MapPanel() throws IOException {
+		this.defaultFont = new Font("Arial", Font.BOLD, 11);
 		this.catapultControler = CatapultsControler._getInstance();
 		this.mouseCoordinates = new Point(0, 0);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -121,16 +124,21 @@ public class MapPanel extends JPanel {
 
 	private void drawShips(final Graphics g) {
 		Polygon triangle;
-		g.setColor(Color.GREEN);
+		g.setFont(this.defaultFont);
 		for (final AbsShip ship : ShipsControler._getInstance().getShips()) {
 			if (!ship.isDocked()) {
 				triangle = new Polygon(
-						new int[] { (int) (ship.getPosition().x + 5), (int) (ship.getPosition().x + 10),
-								(int) ship.getPosition().x },
-						new int[] { (int) ship.getPosition().y, (int) (ship.getPosition().y + 10),
-								(int) (ship.getPosition().y + 10) },
+						new int[] { (int) (ship.getPosition().x), (int) (ship.getPosition().x + 5),
+								(int) ship.getPosition().x - 5 },
+						new int[] { (int) ship.getPosition().y - 5, (int) (ship.getPosition().y + 5),
+								(int) (ship.getPosition().y + 5) },
 						3);
+				g.setColor(Color.GREEN);
 				g.fillPolygon(triangle);
+				g.setColor(Color.WHITE);
+				g.drawString(ship.getCurrentOrder(),
+						(int) ship.getPosition().x - (int) (ship.getCurrentOrder().length() * 2.5f),
+						(int) ship.getPosition().y - 10);
 			}
 		}
 	}
@@ -175,7 +183,7 @@ public class MapPanel extends JPanel {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		this.drawBackGround(g);
-		this.drawShips(g);
 		this.drawUI(g);
+		this.drawShips(g);
 	}
 }
