@@ -9,7 +9,7 @@ public class MoveToCatapultOrder extends AbsOrder {
 	private final String destination;
 
 	public MoveToCatapultOrder(final String destination, final AbsShip ship) {
-		super("Moving to " + destination + "...", ship);
+		super(String.format("Moving to %s...", destination), ship);
 		this.destination = destination;
 	}
 
