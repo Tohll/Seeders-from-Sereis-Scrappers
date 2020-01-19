@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ships.AbsShip;
+import ships.Hauler;
 
 public class ShipsControler {
 
@@ -19,6 +20,9 @@ public class ShipsControler {
 
 	private ShipsControler() {
 		this.ships = new ArrayList<>();
+		final AbsShip ship = new Hauler(CatapultsControler._getInstance().getCatapults().get("SES-001"));
+		this.ships.add(ship);
+		ship.start();
 	}
 
 	public void addShip(final AbsShip ship) {

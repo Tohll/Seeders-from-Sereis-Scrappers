@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import controlers.PlayerControler;
 import planets.AbsPlanet;
-import ships.Hauler;
 
 public class HaulerBuildProgress extends Thread implements Serializable {
 
@@ -35,8 +34,6 @@ public class HaulerBuildProgress extends Thread implements Serializable {
 						HaulerBuildProgress.this.interrupt();
 					}
 				}
-
-				HaulerBuildProgress.this.hostPlanet.receiveShip(new Hauler(HaulerBuildProgress.this.hostPlanet));
 			}
 		};
 	}

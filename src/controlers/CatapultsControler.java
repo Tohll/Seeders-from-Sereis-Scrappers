@@ -1,5 +1,6 @@
 package controlers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +10,16 @@ import java.util.Set;
 import catapults.Catapult;
 import tools.Line;
 
-public class CatapultsControler {
+public class CatapultsControler implements Serializable {
 
 	private static class SingletonHolder {
 		private static final CatapultsControler INSTANCE = new CatapultsControler();
 	}
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 3633697174887429592L;
 
 	public static CatapultsControler _getInstance() {
 		return SingletonHolder.INSTANCE;

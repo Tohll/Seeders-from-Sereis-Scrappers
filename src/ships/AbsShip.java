@@ -1,12 +1,12 @@
 package ships;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import planets.AbsPlanet;
+import catapults.Catapult;
 import raw_resources.AbsResource;
+import tools.Vector2;
 
 public abstract class AbsShip extends Thread implements Serializable {
 
@@ -17,25 +17,29 @@ public abstract class AbsShip extends Thread implements Serializable {
 	 */
 	private static final long serialVersionUID = 8482016902961145447L;
 
+	protected Vector2 direction;
+	protected float distance;
+
 	protected boolean docked;
-	protected AbsPlanet homeLand;
 
+	protected Catapult homeLand;
 	protected int life;
-
-	protected Point position;
+	protected Vector2 position;
 	protected Runnable runnable;
-	protected long speedIndex;
+	protected float speed;
+	protected Vector2 start;
 	protected List<AbsResource> storage;
-	protected Point target;
+	protected Vector2 target;
 	protected String type;
 
-	public AbsShip(final AbsPlanet homeLand, final int speedIndex) {
+	public AbsShip(final Catapult homeLand, final float speed) {
 		super("Ship_Thread");
 		this.docked = true;
 		this.storage = new ArrayList<>();
 		this.homeLand = homeLand;
-		this.position = homeLand.getLocation();
-		this.speedIndex = speedIndex;
+		this.position = new Vector2(homeLand.getDockLocation().x, homeLand.getDockLocation().y);
+		this.start = new Vector2(this.position.x, this.position.y);
+		this.speed = speed;
 		this.runnable = new Runnable() {
 
 			@Override
@@ -48,7 +52,7 @@ public abstract class AbsShip extends Thread implements Serializable {
 
 	protected abstract void act();
 
-	public Point getPosition() {
+	public Vector2 getPosition() {
 		return this.position;
 	}
 
@@ -69,18 +73,10 @@ public abstract class AbsShip extends Thread implements Serializable {
 	}
 
 	protected void move() throws InterruptedException {
-		while ((this.position.x != this.target.x || this.position.y != this.target.y) && this.life > 0) {
-			if (this.position.x > this.target.x) {
-				this.position.x = this.position.x - 1;
-			} else if (this.position.x < this.target.x) {
-				this.position.x = this.position.x + 1;
-			}
-			if (this.position.y > this.target.y) {
-				this.position.y = this.position.y - 1;
-			} else if (this.position.y < this.target.y) {
-				this.position.y = this.position.y + 1;
-			}
-			Thread.sleep(this.speedIndex);
+		while (Vector2.distance(this.start, this.position) < this.distance) {
+			this.position.x += this.direction.x * this.speed;
+			this.position.y += this.direction.y * this.speed;
+			Thread.sleep(10);
 		}
 	}
 
@@ -91,7 +87,10 @@ public abstract class AbsShip extends Thread implements Serializable {
 		}
 	}
 
-	public void setTarget(final Point target) {
+	public void setTarget(final Vector2 target) {
 		this.target = target;
+		this.start = new Vector2(this.position.x, this.position.y);
+		this.distance = Vector2.distance(this.start, target);
+		this.direction = Vector2.direction(target.x - this.start.x, target.y - this.start.y);
 	}
 }

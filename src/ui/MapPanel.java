@@ -19,6 +19,7 @@ import controlers.CatapultsControler;
 import controlers.DataControler;
 import controlers.PlanetsAndHubControler;
 import controlers.PlayerControler;
+import controlers.ShipsControler;
 import planets.AbsPlanet;
 import ships.AbsShip;
 import tools.Line;
@@ -108,7 +109,6 @@ public class MapPanel extends JPanel {
 		for (final AbsPlanet planet : this.planetsControler.getPlanets()) {
 			this.add(planet);
 		}
-		// this.add(this.planetsControler.getMainHub());
 		final Set<String> keys = this.catapultControler.getCatapults().keySet();
 		for (final String key : keys) {
 			this.add(this.catapultControler.getCatapults().get(key));
@@ -122,18 +122,15 @@ public class MapPanel extends JPanel {
 	private void drawShips(final Graphics g) {
 		Polygon triangle;
 		g.setColor(Color.GREEN);
-		for (final AbsPlanet planet : PlanetsAndHubControler._getInstance().getPlanets()) {
-			if (!planet.getShips().isEmpty()) {
-				for (final AbsShip ship : planet.getShips()) {
-					if (!ship.isDocked()) {
-						triangle = new Polygon(
-								new int[] { ship.getPosition().x + 5, ship.getPosition().x + 10, ship.getPosition().x },
-								new int[] { ship.getPosition().y, ship.getPosition().y + 10,
-										ship.getPosition().y + 10 },
-								3);
-						g.fillPolygon(triangle);
-					}
-				}
+		for (final AbsShip ship : ShipsControler._getInstance().getShips()) {
+			if (!ship.isDocked()) {
+				triangle = new Polygon(
+						new int[] { (int) (ship.getPosition().x + 5), (int) (ship.getPosition().x + 10),
+								(int) ship.getPosition().x },
+						new int[] { (int) ship.getPosition().y, (int) (ship.getPosition().y + 10),
+								(int) (ship.getPosition().y + 10) },
+						3);
+				g.fillPolygon(triangle);
 			}
 		}
 	}
