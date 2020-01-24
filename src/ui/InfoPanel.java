@@ -16,6 +16,7 @@ import interfaces.ObsInterface;
 import planets.AbsPlanet;
 import progressBars.HaulerBuildProgress;
 import stations.regulars.Outpost;
+import ui.popups.ShipsListPopup;
 
 public class InfoPanel extends JPanel implements ObsInterface {
 
@@ -30,8 +31,19 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	private final MapPanel map;
 	private final Color progressBarColor;
 	private AbsPlanet selectedPlanet;
+	private final JButton shipsList;
 
 	public InfoPanel(final MapPanel map) {
+		// Add shipsList Button ***********************
+		this.shipsList = new JButton("Ships list");
+		this.shipsList.setBounds(20, 150, 100, 20);
+		this.shipsList.setVisible(true);
+		this.shipsList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				new ShipsListPopup();
+			}
+		});
 		// Add station Button ***********************
 		this.addStation = new JButton("Add station");
 		this.addStation.setBounds(20, 150, 100, 20);
@@ -65,6 +77,7 @@ public class InfoPanel extends JPanel implements ObsInterface {
 		this.setLayout(null);
 		this.add(this.addStation);
 		this.add(this.addHauler);
+		this.add(this.shipsList);
 		this.defaultFont = new Font("Arial", Font.PLAIN, 17);
 		this.bg = new ImageIcon("resources/img/infoPanel.jpeg");
 		DataControler._getInstance().observePlayer(this);

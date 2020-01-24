@@ -1,5 +1,6 @@
 package orders;
 
+import controlers.DataControler;
 import interfaces.OrderInterface;
 import ships.AbsShip;
 
@@ -16,6 +17,7 @@ public abstract class AbsOrder implements OrderInterface {
 
 	@Override
 	public void executeOrder() {
+		DataControler._getInstance().updateShipsListModel();
 		this.execute();
 	}
 

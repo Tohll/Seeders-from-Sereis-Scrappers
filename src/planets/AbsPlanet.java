@@ -25,7 +25,7 @@ public abstract class AbsPlanet extends JLabel {
 	private static final long serialVersionUID = 8042374841747079229L;
 	protected HaulerBuildProgress haulerBuildProgress;
 	protected String planetSize;
-	protected List<AbsShip> ships;
+	private final List<AbsShip> ships;
 	protected AbsStation station;
 	protected String type;
 

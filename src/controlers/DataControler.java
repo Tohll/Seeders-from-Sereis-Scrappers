@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.table.AbstractTableModel;
+
 import interfaces.ObsInterface;
 import tools.ConfigFileReader;
+import ui.popups.ShipsListModel;
 
 public class DataControler {
 
@@ -21,9 +24,11 @@ public class DataControler {
 	private Properties catapults;
 	private final List<ObsInterface> playerObservers;
 	private Properties properties;
+	private final AbstractTableModel shipsListModel;
 
 	private DataControler() {
 		this.playerObservers = new ArrayList<>();
+		this.shipsListModel = new ShipsListModel();
 		this.initProperties();
 		this.initCatapults();
 	}
@@ -34,6 +39,10 @@ public class DataControler {
 
 	public String getConfigProperty(final String key) {
 		return this.properties.getProperty(key);
+	}
+
+	public AbstractTableModel getShipsListModel() {
+		return this.shipsListModel;
 	}
 
 	private void initCatapults() {
@@ -62,5 +71,9 @@ public class DataControler {
 		for (final ObsInterface observer : this.playerObservers) {
 			observer.update();
 		}
+	}
+
+	public void updateShipsListModel() {
+		this.shipsListModel.fireTableDataChanged();
 	}
 }

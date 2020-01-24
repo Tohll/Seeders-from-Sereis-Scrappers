@@ -20,7 +20,7 @@ public abstract class AbsShip extends Thread implements Serializable {
 	 */
 	private static final long serialVersionUID = 8482016902961145447L;
 
-	protected OrderInterface currentOrder;
+	private OrderInterface currentOrder;
 	protected Vector2 direction;
 
 	protected float distance;
