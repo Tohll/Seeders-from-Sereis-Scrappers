@@ -23,6 +23,7 @@ public class Application extends JFrame {
 
 	public Application() {
 		this.setResizable(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setBackground(new Color(0, 0, 0));
 		this.setTitle("Seeders from Sereïs : Scrappers");
