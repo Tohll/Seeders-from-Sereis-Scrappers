@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -23,7 +24,7 @@ public class Application extends JFrame {
 
 	public Application() {
 		this.setResizable(true);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setBackground(new Color(0, 0, 0));
 		this.setTitle("Seeders from Sereïs : Scrappers");
@@ -39,8 +40,8 @@ public class Application extends JFrame {
 			map = new MapPanel();
 			jsp = new JScrollPane(map, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		} catch (NumberFormatException | IOException e2) {
-			e2.printStackTrace();
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
 		}
 		final JPanel infoPanel = new InfoPanel(map);
 		final JScrollPane infoScrollPane = new JScrollPane(infoPanel);

@@ -6,7 +6,7 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import raw_resources.AbsResource;
+import rawResources.AbsResource;
 
 public class MainHub extends JLabel {
 

@@ -1,4 +1,4 @@
-package raw_resources;
+package rawResources;
 
 public class GenericResource extends AbsResource {
 

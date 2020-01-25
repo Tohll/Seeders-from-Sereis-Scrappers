@@ -34,7 +34,7 @@ public class InfoPanel extends JPanel implements ObsInterface {
 	private final JButton shipsList;
 
 	public InfoPanel(final MapPanel map) {
-		// Add shipsList Button ***********************
+		// ShipsList Button ***********************
 		this.shipsList = new JButton("Ships list");
 		this.shipsList.setBounds(20, 150, 100, 20);
 		this.shipsList.setVisible(true);

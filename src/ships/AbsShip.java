@@ -8,7 +8,7 @@ import java.util.Map;
 
 import catapults.Catapult;
 import interfaces.OrderInterface;
-import raw_resources.AbsResource;
+import rawResources.AbsResource;
 import tools.Vector2;
 
 public abstract class AbsShip extends Thread implements Serializable {

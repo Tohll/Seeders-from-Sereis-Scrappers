@@ -7,9 +7,9 @@ import java.util.Properties;
 
 import javax.swing.table.AbstractTableModel;
 
+import dataModels.ShipsListModel;
 import interfaces.ObsInterface;
 import tools.ConfigFileReader;
-import ui.popups.ShipsListModel;
 
 public class DataControler {
 
