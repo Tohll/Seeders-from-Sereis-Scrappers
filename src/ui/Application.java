@@ -27,7 +27,7 @@ public class Application extends JFrame {
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setBackground(new Color(0, 0, 0));
-		this.setTitle("Seeders from Sereïs : Scrappers");
+		this.setTitle("Vision from Sereïs : Empire");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JSplitPane splitPlane = new JSplitPane();
 		splitPlane.setContinuousLayout(true);
