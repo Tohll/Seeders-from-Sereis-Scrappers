@@ -14,7 +14,7 @@ public class ShipsListModel extends AbstractTableModel {
 	private static final Class<?>[] COLUMN_TYPES = new Class<?>[] { String.class, String.class, String.class,
 		JButton.class };
 
-		private static final String[] HEADERS = { "Name", "Homeland", "Current order", "+" };
+		private static final String[] HEADERS = { "Name", "Homeland", "Current order", "Status", "+" };
 
 		/**
 		 *
@@ -55,6 +55,11 @@ public class ShipsListModel extends AbstractTableModel {
 			case 2:
 				return ShipsControler._getInstance().getShips().get(rowIndex).getCurrentOrder();
 			case 3:
+				return ShipsControler._getInstance().getShips().get(rowIndex).getDockedStation() != null
+				? "Docked to " + ShipsControler._getInstance().getShips().get(rowIndex).getDockedStation()
+						.getDockableName()
+						: "In flight";
+			case 4:
 				final JButton button = new JButton("Orders");
 				button.addActionListener(new ActionListener() {
 					@Override

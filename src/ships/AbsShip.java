@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import catapults.Catapult;
+import interfaces.Dockable;
 import interfaces.OrderInterface;
 import rawResources.AbsResource;
 import tools.Vector2;
@@ -25,7 +26,7 @@ public abstract class AbsShip extends Thread implements Serializable {
 
 	protected float distance;
 
-	protected boolean docked;
+	protected Dockable dockedStation;
 	protected Catapult homeLand;
 	protected int life;
 	protected Map<Integer, OrderInterface> orders;
@@ -39,8 +40,8 @@ public abstract class AbsShip extends Thread implements Serializable {
 
 	public AbsShip(final Catapult homeLand, final long speed) {
 		super("Ship_Thread");
+		this.dockedStation = homeLand;
 		this.orders = new HashMap<>();
-		this.docked = true;
 		this.storage = new ArrayList<>();
 		this.homeLand = homeLand;
 		this.position = new Vector2(homeLand.getDockLocation().x, homeLand.getDockLocation().y);
@@ -72,6 +73,10 @@ public abstract class AbsShip extends Thread implements Serializable {
 		return this.currentOrder != null ? this.currentOrder.getComment() : "Iddle.";
 	}
 
+	public Dockable getDockedStation() {
+		return this.dockedStation;
+	}
+
 	public Catapult getHomeLand() {
 		return this.homeLand;
 	}
@@ -93,7 +98,7 @@ public abstract class AbsShip extends Thread implements Serializable {
 	}
 
 	public boolean isDocked() {
-		return this.docked;
+		return this.dockedStation != null ? true : false;
 	}
 
 	protected void load(final AbsResource resourceStack) {
@@ -115,8 +120,8 @@ public abstract class AbsShip extends Thread implements Serializable {
 		}
 	}
 
-	public void setDocked(final boolean docked) {
-		this.docked = docked;
+	public void setDockedStation(final Dockable dockedStation) {
+		this.dockedStation = dockedStation;
 	}
 
 	public void setTarget(final Vector2 target) {

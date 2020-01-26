@@ -3,8 +3,11 @@ package ui.popups;
 import java.awt.Dimension;
 
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import dataModels.OrdersListModel;
@@ -29,7 +32,12 @@ public class OrdersListPopup extends JDialog {
 		final JTable table = new JTable(new OrdersListModel(ship));
 		table.getColumn("+").setCellRenderer(new TableButtonRenderer());
 		table.addMouseListener(new TableButtonListerner(table));
-		this.add(new JScrollPane(table));
+		final JSplitPane splitPlane = new JSplitPane(SwingConstants.HORIZONTAL, new JScrollPane(table), new JPanel());
+		splitPlane.setContinuousLayout(true);
+		splitPlane.resetToPreferredSizes();
+		splitPlane.setDividerLocation(300);
+		splitPlane.setDividerSize(0);
+		this.add(splitPlane);
 		this.pack();
 		this.setVisible(true);
 	}

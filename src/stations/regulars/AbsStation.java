@@ -2,7 +2,9 @@ package stations.regulars;
 
 import java.io.Serializable;
 
-public abstract class AbsStation implements Serializable {
+import interfaces.Dockable;
+
+public abstract class AbsStation implements Serializable, Dockable {
 
 	private static final long serialVersionUID = 9002374639240506733L;
 	protected String name;
@@ -11,6 +13,11 @@ public abstract class AbsStation implements Serializable {
 	public AbsStation(final String name, final String type) {
 		this.name = name;
 		this.type = type;
+	}
+
+	@Override
+	public String getDockableName() {
+		return this.getName();
 	}
 
 	public String getName() {

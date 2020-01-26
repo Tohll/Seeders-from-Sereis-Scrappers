@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Catapult extends JLabel {
+import interfaces.Dockable;
+
+public class Catapult extends JLabel implements Dockable {
 
 	/**
 	 *
@@ -16,13 +18,16 @@ public class Catapult extends JLabel {
 	private static final long serialVersionUID = -750438745352999626L;
 	private List<String> children;
 	private Point dockLocation;
+	private final String name;
 
 	public Catapult(final String name, final int x, final int y, final List<String> children) {
+		super();
 		if (!children.isEmpty()) {
 			this.children = children;
 		} else {
 			this.children = new ArrayList<>();
 		}
+		this.name = name;
 		this.setSize(new Dimension(40, 30));
 		this.setLocation(new Point(x, y));
 		this.setName(name);
@@ -33,6 +38,11 @@ public class Catapult extends JLabel {
 
 	public List<String> getChildren() {
 		return this.children;
+	}
+
+	@Override
+	public String getDockableName() {
+		return this.name;
 	}
 
 	public Point getDockLocation() {

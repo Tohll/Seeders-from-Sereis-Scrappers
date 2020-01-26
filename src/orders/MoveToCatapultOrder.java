@@ -15,7 +15,7 @@ public class MoveToCatapultOrder extends AbsOrder {
 
 	@Override
 	public void execute() {
-		this.ship.setDocked(false);
+		this.ship.setDockedStation(null);
 		this.ship.setTarget(
 				new Vector2(CatapultsControler._getInstance().getCatapults().get(this.destination).getDockLocation().x,
 						CatapultsControler._getInstance().getCatapults().get(this.destination).getDockLocation().y));
@@ -25,6 +25,7 @@ public class MoveToCatapultOrder extends AbsOrder {
 			e.printStackTrace();
 			this.ship.interrupt();
 		}
+		this.ship.setDockedStation(CatapultsControler._getInstance().getCatapults().get(this.destination));
 	}
 
 }
