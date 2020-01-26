@@ -98,7 +98,7 @@ public abstract class AbsShip extends Thread implements Serializable {
 	}
 
 	public boolean isDocked() {
-		return this.dockedStation != null ? true : false;
+		return this.dockedStation != null;
 	}
 
 	protected void load(final AbsResource resourceStack) {
